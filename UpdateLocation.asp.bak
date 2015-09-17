@@ -1,0 +1,575 @@
+<!--#INCLUDE FILE="date.inc"-->
+<!--#INCLUDE FILE="DbConfig.asp"-->
+<% dim strDate
+strDate = DanDate(Date, "%d/%m/%Y" )
+
+Sub CleanUp() 
+
+	set rsLocation = nothing
+'	conn.close
+	set conn = nothing
+
+End Sub
+
+Sub RefreshMenu()
+	
+	Dim Output
+	Output = "<SCRIPT LANGUAGE=javascript><!-- " + chr(13)
+	Output = Output + "parent.frames['Search'].location.reload() " + chr(13)
+	Output = Output + "//--></SCRIPT>"
+	
+	Response.Write(OutPut)
+	
+End Sub
+
+dim bolUpdateLocation
+dim bolDeleteLocation
+
+Dim numLocationID
+Dim rsLocation
+Dim rsAddStore
+Dim rsStore
+'Dim rsRoomLocation
+'Dim rsAccess2
+Dim strSQL
+Dim strSQLAdd2
+Dim strSQLAdd
+Dim conn 
+Dim strBuildingLocationID
+
+bolUpdateLocation = NOT(IsEmpty(Request.Form("btnUpdateLocation")))
+bolDeleteLocation = NOT(IsEmpty(Request.Form("btnDeleteLocation")))
+
+'inBuildingID = cint(request.form("hdnNumBuildingID"))
+
+'numLocationID = Request.Form("hdnNumLocationID")
+
+
+  numLocationID = cstr(session("numLocationID"))
+  strBuildingLocationID = cstr(session("numBuildingID"))
+  numCampusID = cstr(session("numCampusID")) 
+
+oldLoginID = Request.Form("hdnStrLoginID")
+
+if numLocationID = "0" then
+	Response.Write "You must Choose a Location"
+	Response.End
+end if
+
+set conn = Server.CreateObject("ADODB.Connection")
+conn.open constr
+set rsLocation = Server.CreateObject("ADODB.Recordset")
+set rsAccess = Server.CreateObject("ADODB.Recordset")
+if (bolUpdateLocation OR bolDeleteLocation) THEN
+	
+'	Dim strBuildingLocation
+	Dim strStoreType
+	Dim strStoreManager
+	Dim dtmLastUpdated
+	Dim strStoreNote
+	Dim strStoreLocation
+	Dim storeLocation
+	Dim numCampus
+	Dim numBuilding
+	Dim numStoreTypeID
+	Dim strLicensedDepot
+	
+	If bolUpdateLocation then
+	
+	Dim strPassword
+Dim strPassword2
+strPassword = LCASE(Request.Form("txtPassword"))
+strPassword2 = LCASE(Request.Form("txtPassword2"))
+if (strPassword <> strPassword2) then
+	Response.Write "Passwords do not match, press the back key on the browser and enter again"
+	Response.End
+end if
+	
+	Dim chkNewLoginID
+	Dim strMsg
+
+'	strStoreLocation = Request.Form("txtStoreLocation")
+	numCampus = request.form("cboCampus")
+	numBuilding = request.form("cboBuildingLocation")
+	strStoreType = Request.Form("cboStoreType")
+	strStoreNote = Request.Form("txtStoreNotes")
+	if strStoreNote = "" then
+		strStoreNote = " "
+	end if
+	
+	strStoreManager = Request.Form("txtStoreManager")
+	strStoreLocation = Request.form("numStoreLocation")
+	storeLocation = Request.form("txtStoreLocation")
+	strLoginID = Request.Form("cboLoginID")
+	dtmLastUpdated = strDate
+	numStoreTypeID = request.form("cboStoreType")
+	strLicensedDepot = request.form("chkLicensedDepot")
+	if strLicensedDepot <> "true" then
+		strLicensedDepot = "false"
+	end if 
+	
+'	dtmLastUpdated = Request.Form("txtLastUpdated")
+	
+	For each item in Request.Form
+		If ((item = "bolDeleteLocation") OR (item = "chkNewLoginID" )) then
+			'Do nothing
+		else
+			if item <> "txtStoreNotes" then
+				if request.form(item) = "" then
+					Response.Write "All fields must contain values. Please go back and fill in "
+					Response.Write item
+					Response.End
+				end if
+			end if
+		end if	
+	Next	
+
+	if numCampus = "0" then
+		Response.Write "All fields must contain values. Please go back and select a building"
+		Response.End	
+	end if
+	if numBuilding = "0" then
+		Response.Write "All fields must contain values. Please go back and select a floor"
+		Response.End	
+	end if
+	if strStoreType = "0" then
+		Response.Write "All fields must contain values. Please go back and select a store type"
+		Response.End	
+	end if
+	
+	chkNewLoginID = Request.Form("chkNewLoginID")
+
+	strSQLAdd = "UPDATE tblStoreLocation "
+	strSQLAdd = strSQLAdd + "SET numBuildingID = " + cstr(numBuilding) + ", "
+	strSQLAdd = strSQLAdd + "strStoreLocation = '" + InjectionEncode(storeLocation) + "' "
+	strSQLAdd = strSQLAdd + "WHERE (numStoreLocationID = " + cStr(strStoreLocation) + ")"
+	set rsAddStore = Server.CreateObject("ADODB.Recordset")
+	rsAddStore.Open strSQLAdd, conn, dynaset, 3
+
+	strSQL = "UPDATE tblLocation "	
+'	strSQL = strSQL + "SET strBuildingLocation = '" + strBuildingLocation + "', "
+'	strSQL = strSQL + "strBuildingLocationID = '" + strBuildingLocationID + "', "
+	strSQL = strSQL + "SET numCampusID = " + cstr(numCampus) + ", "
+	strSQL = strSQL + "numBuildingID = " + cstr(numBuilding) + ", "
+	strSQL = strSQL + "numStoreLocationID = '" + cstr(strStoreLocation) + "', "
+'	strSQL = strSQL + "strStoreLocation = '" + strStoreLocation + "', "
+	strSQL = strSQL + "strStoreNotes = '" + InjectionEncode(strStoreNote) + "', "
+	strSQL = strSQL + "numStoreTypeID = " + cstr(numStoreTypeID) + ", "
+	strSQL = strSQL + "strStoreManager = '" + InjectionEncode(strStoreManager) + "', "
+	strSQL = strSQL + "strLoginID = '" + InjectionEncode(strLoginID) + "', "
+	strSQL = strSQL + "dtmLastUpdated = '" + dtmLastUpdated + "', "
+	strSQL = strSQL + "boolLicensedDepot = " + InjectionEncode(strLicensedDepot) + " "
+	strSQL = strSQL + "WHERE (numLocationID = " + cStr(numLocationID) + ")"
+	
+	rsLocation.Open strSQL, conn, 2, 3
+	
+
+'	strSQL = "SELECT tblAccess.strLoginID FROM tblAccess WHERE tblAccess.strLoginID = '" + StrLoginID + "'"
+	strSQL = "SELECT * FROM tblAccess WHERE tblAccess.strLoginID = '" + InjectionEncode(StrLoginID) + "'"
+	set rsAccess = Server.CreateObject("ADODB.Recordset")
+	rsAccess.Open strSQL, conn, dynaset, 3	
+
+if(strLoginID = oldLoginID) then
+	strSQL = "UPDATE tblAccess SET strPassword = '" + InjectionEncode(strPassword) + "' WHERE (strLoginID = '" + InjectionEncode(strLoginID) + "')"
+	strMsg = strStoreManager + "'s details have been updated."
+end if
+
+if (strLoginID <> oldLoginID) then
+	if (chkNewLoginID = "on") then
+		if not(rsAccess.EOF) then
+			strMsg = strLoginID + " is already assigned to a manager in the system, go back and choose a new one."
+		else
+			strSQL = "INSERT INTO tblAccess (strLoginID, strPassword) VALUES "
+			strSQL = strSQL + "('" + InjectionEncode(strLoginID) + "', '" + InjectionEncode(strPassword) + "')"
+			strMsg = "New manager, " + strStoreManager + " has been added with the login ID " + strLoginID
+		end if	
+	else
+		If not(rsAccess.EOF) then
+			strSQL = "UPDATE tblAccess SET strPassword = '" + InjectionEncode(strPassword) + "' WHERE (strLoginID = '" + InjectionEncode(strLoginID) + "')"	
+			strMsg = strStoreManager + " is now the manager of the Location."
+		else
+			strSQL = "UPDATE tblAccess SET strLoginID = '" + InjectionEncode(strLoginID) + "', strPassword = '" + InjectionEncode(strPassword) + "' WHERE (strLoginID = '" + InjectionEncode(oldLoginID) + "')"	
+			Dim strSQL2
+			strSQL2 = "UPDATE tblLocation SET strLoginID = '" + InjectionEncode(strLoginID) + "' WHERE (strLoginID = '" + InjectionEncode(oldLoginID) + "')"
+			Dim rs
+			set rs = Server.CreateObject("ADODB.Recordset")
+			rs.Open strSQL2, conn, 2, 3
+			set rs = Nothing
+			strMsg = oldLoginID + " has been updated to " + strLoginID + " and any other locations managed by " + strStoreManager + " have been updated to reflect this."
+		end if
+	end if
+end if
+	
+	rsAccess.close
+	rsAccess.Open strSQL, conn, dynaset, 3
+	set rsAccess = Nothing
+	
+	CleanUp()
+
+	'rsAddStore.close
+	'set rsAddStore = nothing
+	'rsStore.close
+	'set rsStore = nothing
+
+	RefreshMenu()
+	Response.Write "The location has been updated, " + strMsg
+	Response.End
+	end if
+	
+	if bolDeleteLocation then
+	
+	strSQL = "Delete FROM tblLocation "
+	strSQL = strSQL + "WHERE numLocationID = " + cstr(numLocationID)
+	
+	rsLocation.Open strSQL, conn, 2, 3
+	CleanUp()
+	RefreshMenu()
+	Response.Write "The location has been Deleted"
+	Response.End
+	End If
+	
+Else	
+
+	strSQL = "SELECT * FROM tblLocation, tblStoreLocation "
+	strSQL = strSQL + "WHERE tblLocation.numStoreLocationID = tblStoreLocation.numStoreLocationID AND numLocationID = " + cstr(numLocationID)
+	rsLocation.Open strSQL, conn, 3, 3
+
+Call checkAction
+	
+	if (rsLocation.EOF) then
+		Response.Write "You must Choose a Location"
+		Response.End
+	End if
+	
+	Dim strLoginID
+	strLoginID = rsLocation("strLoginID")
+	
+	strSQL = "SELECT * FROM tblAccess "
+	strSQL = strSQL + "WHERE strLoginID = '" + InjectionEncode(strLoginID) + "'"
+	rsAccess.Open strSQL, conn, 3, 3
+	
+End If
+
+
+%><HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<TITLE>Update Location</TITLE>
+
+<script language="javascript">
+<!--
+
+function newloginid(){
+	var blank
+	blank = ""
+
+	document.frmUpdateLocation.txtPassword.value = blank
+	document.frmUpdateLocation.txtPassword2.value = blank
+//	document.frmUpdateLocation.txtLoginID.value = blank
+	document.frmUpdateLocation.txtStoreManager.value = blank
+}
+
+function locations() {
+	document.frmUpdateLocation.action.value = "getStoreType";
+ 	document.frmUpdateLocation.submit();
+}
+
+//-->
+</script>
+</HEAD>
+<BODY>
+
+<DIV align=center>
+<BR><FONT color=black face=Arial style="BACKGROUND-COLOR: #ffffff">
+<BR>
+<FONT COLOR=#f70932 SIZE="+1"><B>NOTE: If you delete a location, all its chemical inventory is also deleted</B>.</FONT>
+
+<FORM action="UpdateLocation.asp" method=POST name=frmUpdateLocation>
+
+<input type=hidden name=action value="abc">
+<input type=hidden name=numStoreLocation value=<%= strStoreLocation %>>
+
+<TABLE align=center border=0 cellPadding=1 cellSpacing=10>
+    <TR>
+		<TD><STRONG><FONT color=red face="">Update a Location</FONT></STRONG><BR><BR></TD></TR>
+<TR>
+        <TD>Location:</TD>
+        <TD>
+			<% 
+'strBuildingLocationID = rsLocation("strBuildingLocationID")
+%> 
+        Building: <% 
+
+Dim numCampusID
+Dim campusLocation
+Dim strCampusSQL
+Dim connCampus
+Dim inCampusID
+'Dim constr2
+'constr2 = "PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source=" & Server.Mappath("data/Chemicals.mdb")
+
+
+'set connCampus = Server.CreateObject("ADODB.Connection")
+'connCampus.open constr
+set campusLocation = Server.CreateObject("ADODB.Recordset")
+strCampusSQL= "SELECT numCampusID, strCampusName FROM tblCampus"
+'strSQL= strSQL + strBuildingLocationID + "' ORDER BY strStoreLocation, strStoreType"
+campusLocation.Open strCampusSQL, conn, 3, 3
+
+
+
+inCampusID = cstr(session("numCampusID"))
+'inCampusID = cint(request.form("hdnNumCampusID"))
+numCampusID = cint(request.form("cboCampus"))
+if numCampusID = "0" then
+	numCampusID = inCampusID
+end if
+'response.Write(cstr(numCampusID) + "T")
+%> 
+        <select name="cboCampus" onChange="javascript:locations()">
+		  <option value="0">Please select</option>
+          <% do while not campusLocation.EOF %>
+          <option value="<%=campusLocation("numCampusID")%>"
+		  <% if campusLocation("numCampusID") = numCampusID then
+		  response.Write "selected"
+		  end if %>		  
+		  ><%= campusLocation("strCampusName") %></option>
+          <% campusLocation.MoveNext
+	loop
+
+	campusLocation.Close
+	set campusLocation = nothing
+	'connCampus.close
+	'set connCampus = nothing
+%> 
+        </select>
+Floor: 
+<% 
+Dim numBuildingID
+Dim buildingLocation
+Dim strBuildingSQL
+Dim connBuilding
+Dim inBuildingID
+'Dim constr3
+
+'numCampusID = request.form("cboCampus")
+'if numCampusID = "" then
+'	numCampusID = 0
+'end if
+'response.Write(cstr(numCampusID))
+
+'constr3 = "PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source=" & Server.Mappath("data/Chemicals.mdb")
+
+'response.Write(cstr(numCampusID))
+
+inBuildingID = cstr(session("numBuildingID"))
+numBuildingID = cint(request.form("cboBuildingLocation"))
+if numBuildingID = "0" then
+	numBuildingID = inBuildingID
+end if
+
+'set connBuilding = Server.CreateObject("ADODB.Connection")
+'connBuilding.open constr
+set buildingLocation = Server.CreateObject("ADODB.Recordset")
+strBuildingSQL = "SELECT numBuildingID, strBuildingName FROM tblBuilding WHERE numCampusID = "
+strBuildingSQL = strBuildingSQL + cstr(numCampusID) + " ORDER BY numBuildingID"
+buildingLocation.Open strBuildingSQL, conn, 3, 3
+'response.write(strBuildingSQL)
+%> 
+<select name="cboBuildingLocation">
+		<option value="0">Please select</option>
+		<%	do while not buildingLocation.EOF %>
+         <option value="<%= buildingLocation("numBuildingID")%>"
+		  <% if numBuildingID = buildingLocation("numBuildingID") then
+		  response.Write "selected"
+		  end if %>		 
+		 ><%= buildingLocation("strBuildingName") %></option>
+          <%	buildingLocation.MoveNext
+	loop
+	buildingLocation.Close
+	set buildingLocation = nothing
+	'connBuilding.close
+	'set connBuilding = nothing
+%>
+</select>
+
+</TD></TR>
+    <TR>
+        <TD>Store Location (Room):</TD>
+        <TD> 
+			<input type="text" name=txtStoreLocation size="15" value="<%= storeLocation %>">
+        </TD></TR>
+    
+    <TR>
+        <TD>Store Type:</TD>
+        <TD>
+          <% 
+
+Dim rsStoreType
+Dim inStoreTypeID
+
+inStoreTypeID = request.form("cboStoreType")
+if inStoreTypeID = "" then
+	inStoreTypeID = rsLocation("numStoreTypeID")
+'	response.write cstr("replaced")
+end if
+
+'response.write cstr(inStoreTypeID)
+
+'set conn = Server.CreateObject("ADODB.Connection")
+'conn.open constr
+
+strSQL= "SELECT * FROM tblStoreType"
+
+set rsStoreType = Server.CreateObject("ADODB.Recordset")
+rsStoreType.Open strSQL, conn, 3, 3
+%>
+          <select name="cboStoreType" onChange="javascript:locations()">
+          <% do while not rsStoreType.EOF %>
+		  <option value="<%= rsStoreType("numStoreTypeID") %>"
+  		  <% if cint(inStoreTypeID) = rsStoreType("numStoreTypeID") then
+		  response.Write "selected"
+		  end if %>		
+		  ><%= rsStoreType("strStoreType") %></option>
+          <%	rsStoreType.MoveNext
+	loop 
+	rsStoreType.Close
+	set rsStoreType = nothing
+'	conn.close
+'	set conn = nothing
+%> 
+	</select></td></tr>
+
+    <TR>
+	<TD>Store Notes:</TD>
+        <TD>
+<% 
+
+%>
+            <INPUT name=txtStoreNotes value="<%= strStoreNote %>"  size="30" maxlength="30">
+		</TD></TR>
+
+	<TD>Date:</TD>
+        <TD>
+			<b><font size="2"><%= strDate %></font></b>
+<!--            <INPUT name=txtLastUpdated value="<%'= strDate %>" style="HEIGHT: 22px; WIDTH: 149px" disabled> -->
+			</TD></TR>
+   
+	<TR>
+        <TD colspan=2><i>Enter the Supervisors Login ID and Password to allow them to update and add chemicals to this location</i></TD>
+        
+	<TR>
+        <TD colspan=2>Is the location being managed by a manager that's new to the system: 
+		 <input type="checkbox" name="chkNewLoginID" onClick="newloginid()" LANGUAGE=javascript></TD>
+    </TR>
+
+        <TR>
+        <TD>Supervisor:</TD>
+        <TD>
+<%
+Dim rsAccess2
+Dim rsAccessOther
+Dim inLoginID
+Dim strSQLAccess
+Dim strLoginIDcbo
+
+'set conn = Server.CreateObject("ADODB.Connection")
+'conn.open constr
+
+strSQL = "SELECT * FROM tblAccess"
+set rsAccess2 = Server.CreateObject("ADODB.Recordset")
+rsAccess2.Open strSQL, conn, 3, 3
+
+inLoginID = rsAccess("strLoginID")
+strLoginIDcbo = request.form("cboLoginID")
+
+if strLoginIDcbo = "" then
+	strLoginIDcbo = inLoginID
+end if
+
+strSQLAccess = "SELECT * FROM tblAccess, tblLocation WHERE tblLocation.strLoginID = tblAccess.strLoginID AND tblAccess.strLoginID = '" + strLoginIDcbo + "'"
+set rsAccessOther = Server.CreateObject("ADODB.Recordset")
+rsAccessOther.Open strSQLAccess, conn, 3, 3
+		if rsAccessOther.EOF then
+			rsAccessOther.close
+			set rsAccessOther = nothing
+			set rsAccessOther = Server.CreateObject("ADODB.Recordset")			
+			strSQL = "SELECT * FROM tblACCESS WHERE tblAccess.strLoginID = '" + strLoginIDcbo + "'"
+			rsAccessOther.Open strSQL, conn, 3, 3
+			strPassword = rsAccessOther("strPassword")
+			strStoreManager = rsAccessOther("strFirstName") + " " + rsAccessOther("strLastName")
+		else
+			strPassword = rsAccessOther("strPassword")
+			strStoreManager = rsAccessOther("strStoreManager")
+		end if
+
+
+%>
+            <INPUT name=txtStoreManager value="<%= strStoreManager %>" style="HEIGHT: 22px; WIDTH: 265px">
+			<%'= strStoreManager %>
+		</TD></TR>
+	<TR>
+        <TD>Login ID:</TD>
+        <TD>
+          <select name="cboLoginID" onChange="javascript: locations()">
+          <% do while not rsAccess2.EOF 
+		  if ( rsAccess2("strLoginID") <> "admin" ) AND ( rsAccess2("strLoginID") <> "security" ) AND ( rsAccess2("strLoginID") <> "science" ) then		  
+		  %>
+		  <option value="<%= rsAccess2("strLoginID") %>"
+  		  <% if strLoginIDcbo = rsAccess2("strLoginID") then
+		  response.Write "selected"
+		  end if %>		
+		  ><%= rsAccess2("strLoginID") 
+		  %></option>
+          <%
+		  end if
+		  	rsAccess2.MoveNext
+	loop 
+	rsAccess2.Close
+	set rsAccess2 = nothing
+'	conn.close
+'	set conn = nothing
+%> 
+	</select>
+        </TD>
+      </TR>
+    
+	<TR>
+        <TD>Password:</TD>
+        <TD>
+            <INPUT type=password value="<%= strPassword %>" name=txtPassword style="HEIGHT: 22px; WIDTH: 265px"></TD></TR>
+   <TR>
+        <TD>Confirm Password:</TD>
+        <TD>
+            <INPUT type=password name=txtPassword2 value="<%= strPassword %>" style="HEIGHT: 22px; WIDTH: 265px"></TD></TR>
+    
+      
+        <TD colspan=2><INPUT type="reset" value="Clear Form" name=btnClear>&nbsp;&nbsp;
+			<INPUT type="submit" value="Update Location" name=btnUpdateLocation>&nbsp;&nbsp;
+			<INPUT type="submit" value="Delete Location" name=btnDeleteLocation>
+			</TD></TR></TABLE>
+			<INPUT type="hidden" value=<%= numLocationID %> name=hdnNumLocationID>
+			<INPUT type="hidden" value=<%= rsLocation("strLoginID") %> name=hdnStrLoginID>
+<% 	CleanUp() %>
+</FORM>
+</FONT></DIV>
+</BODY>
+</HTML>
+<%
+Sub checkAction()
+	if request.form("action") <> "getStoreType" then
+		strStoreNote = rsLocation("strStoreNotes")
+		strStoreManager = rsLocation("strStoreManager")
+		strStoreLocation = rsLocation("tblStoreLocation.numStoreLocationID")
+		storeLocation = rsLocation("tblStoreLocation.strStoreLocation")
+		'strLicensedDepot = rsLocation("boolLicensedDepot")
+	else
+		strStoreNote = request("txtStoreNotes")
+		strStoreManager = request("txtStoreManager")
+		strLicensedDepot = request("chkLicensedDepot")
+		strLoginIDChg = request("cboLoginID")
+		storeLocation = request("txtStoreLocation")
+		strStoreLocation = request("numStoreLocation")
+	end if
+end Sub
+%>

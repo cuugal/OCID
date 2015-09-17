@@ -1,0 +1,126 @@
+INSTRUCTIONS FOR UPDATING THE EXISTING OCID DATABASE TO VERSION 4.0
+==================================================================
+March 2014
+
+1) Backup the existing Chemicals.mdb database and all the files. e.g. archive to a zip. 
+
+2) Rename Login.asp to Login.asp.backup and rename LoginMAINTENANCE_NOTE.asp to Login.asp whilst updating database.
+
+3) In database (open data/Chemicals.asp --> Queries), archive qryChemicalRiskAssessment - e.g. rename by adding OLD to the end of name
+
+4) Open up the existing query 'STORE DETAILS' in design view (right click) and add the new columns tblLocation.dtmLastUpdated ,  tblCampus.strCampusName  and  tblBuilding.numBuildingID then Save.
+
+5) Create a new query called 'qryChemicalRiskAssessment'.  Paste the following SQL into it and save:
+
+SELECT tblRiskAssessment.strWorkActivity, tblRiskAssessment.strChemicalName, tblRiskAssessment.strAssessorsName, tblRiskAssessment.dtmDateOfAssessment, tblRiskAssessment.strRiskControlled, tblChemicalContainer.numChemicalContainerID, tblRiskAssessment.numRiskAssessmentID, [STORE DETAILS].numLocationID, [STORE DETAILS].strStoreManager, tblChemicalContainer.strHazardous, tblChemicalContainer.strSpecificLocation, tblRiskAssessment.numRiskAssessmentID, [STORE DETAILS].strStoreType, [STORE DETAILS].dtmLastUpdated, [STORE DETAILS].strCampusName, [STORE DETAILS].strBuildingName, [STORE DETAILS].strStoreLocation,
+  [STORE DETAILS].strStoreNotes, tblRiskAssessment.strLocationOfUse, [STORE DETAILS].numBuildingID
+FROM [STORE DETAILS] INNER JOIN (tblRiskAssessment LEFT JOIN tblChemicalContainer ON tblRiskAssessment.numChemicalContainerID = tblChemicalContainer.numChemicalContainerID) ON [STORE DETAILS].numLocationID = tblRiskAssessment.numLocationId
+
+UNION SELECT tblRiskAssessment.strWorkActivity, tblChemicalContainer.strChemicalName, tblRiskAssessment.strAssessorsName, tblRiskAssessment.dtmDateOfAssessment, tblRiskAssessment.strRiskControlled, tblChemicalContainer.numChemicalContainerID, tblRiskAssessment.numRiskAssessmentID,  [STORE DETAILS].numLocationID , [STORE DETAILS].strStoreManager , tblChemicalContainer.strHazardous, tblChemicalContainer.strSpecificLocation, tblRiskAssessment.numRiskAssessmentID, [STORE DETAILS].strStoreType, [STORE DETAILS].dtmLastUpdated, [STORE DETAILS].strCampusName, [STORE DETAILS].strBuildingName , [STORE DETAILS].strStoreLocation,
+  [STORE DETAILS].strStoreNotes, tblRiskAssessment.strLocationOfUse, [STORE DETAILS].numBuildingID
+FROM [STORE DETAILS] INNER JOIN (tblChemicalContainer LEFT JOIN tblRiskAssessment ON tblChemicalContainer.numChemicalContainerID = tblRiskAssessment.numChemicalContainerID) ON [STORE DETAILS].numLocationID = tblChemicalContainer.numLocationID
+ORDER BY tblRiskAssessment.numRiskAssessmentID;
+
+
+6) Run the following queries to update the RiskAssessment table.
+
+alter table tblRiskAssessment add column strOrganicPeroxide text(100);
+alter table tblRiskAssessment add column strLocationOfUse text(100);
+alter table tblRiskAssessment add column strOtherPersons text(255);
+alter table tblRiskAssessment add column strFlammableGas text(20);
+alter table tblRiskAssessment add column strGasUnderPressure text(20);
+alter table tblRiskAssessment add column strFlammableSolid text(20);
+alter table tblRiskAssessment add column strPyrophoricSubstance text(20);
+alter table tblRiskAssessment add column strSafeWorkProcedures text(20);
+alter table tblRiskAssessment add column strGloveType text(20);
+alter table tblRiskAssessment add column strSpillkitType text(20);
+alter table tblRiskAssessment add column strExposureMonitoring text(20);
+alter table tblRiskAssessment add column strExtinguisherType text(20);
+alter table tblRiskAssessment add column strFireBlanket text(20);
+alter table tblRiskAssessment add column strSpecificHealthEffects text(255);
+alter table tblRiskAssessment add column strChemicalName text(100);
+alter table tblRiskAssessment add column numLocationId integer;
+
+Check that all 16 new fields were successfuly added to the table.
+
+
+7) Run these two update queries - some housekeeping on the existing RA data to get the records aligned up.  The code already supports this so any new risk assessments should have these fields filled in.
+
+Click Yes to the dialogue to agree to update x number of rows.
+
+UPDATE tblRiskAssessment
+INNER JOIN tblChemicalContainer ON (tblRiskAssessment.numChemicalContainerId = tblChemicalContainer.numChemicalContainerId)
+SET tblRiskAssessment.strChemicalName = tblChemicalContainer.strChemicalName
+
+UPDATE tblRiskAssessment
+INNER JOIN tblChemicalContainer ON (tblRiskAssessment.numChemicalContainerId = tblChemicalContainer.numChemicalContainerId)
+SET tblRiskAssessment.numLocationId = tblChemicalContainer.numLocationId
+
+
+8) In Database Tools > Relationships, delete the relationship between tblChemicalContainer and tblRiskAssessment AND delete the relationship between tblLocation and tblChemicalContainer.
+
+
+9) Run these two update queries to write into the text feilds strGloveType and strSpillKitType the words "Provide Detail" where the corresponding, now deprecated, check box was ticked.
+
+Click Yes to the dialogue to agree to update x number of rows.
+
+UPDATE tblRiskAssessment
+SET strGloveType ='Provide Detail'
+WHERE strControlGloves ='On';
+
+UPDATE tblRiskAssessment
+SET strSpillKitType ='Provide Detail'
+WHERE strFacilitiesSpillKit ='On';
+
+
+10) In database tblRiskAssessment - change fieldsize of (strHazardousProducts to 255) and fieldsize of (strGloveType, strSpillkitType, strExtinguisherType to 100).
+
+
+11) Copy across new asp files to the web directory and replace where duplicates.
+
+
+12) Delete the file: _OCID_VERSION_3.1
+
+
+13) Delete the file: Read_Me_First.txt
+
+
+14) Revert nameing ofLogin.asp and LoginMAINTENANCE_NOTE.asp
+
+
+
+
+
+
+
+INSTRUCTIONS FOR UPDATE EXISTING ocid DATABASE TO VERSION 3.1
+=============================================================
+September2008
+
+
+1) Backup the database.
+
+
+2) Run the script called updateDatabaseScript.asp. Do this by pasting the file name into the path of ocid in your browser window and hitting return (e.g.http://www.ocid.uts.edu.au/OCIDScience/updateDatabaseScript.asp) This script puts a space in the field strContainerSize between size and unit. It changes the numQuanity to 0 if this field is empty and changes the strContainerSize in 0 g if this field is empty.
+
+
+3) Create the following 3 queries under the Objects - Queries section of the database.
+qryDangerousGood (a new query).
+qryChemicalRiskAssessment (a modified query). - replace existing query
+updateStrStoreNotesTextField (a new query)
+
+This is how:
+
+Select 'Queries'
+Select 'Create query in Design view'.
+Close the 'Show Table' window.
+Right click in grey part of window - select 'SQL View' from the menu.
+Paste into this window the text after SQL: including the semi-colon, from the file called Queries.txt, for the first query called "updateStrStoreNotesTextField". Paste this over SELECT;
+Close window.
+Save as "updateStrStoreNotesTextField" - just paste the corresponding name from the Queries.txt file.
+Do the same for the next 2 queries.
+
+
+4) Run the new query called updateStrStoreNotesTextField simply by double-clicking it and clicking yes to the message box.
+
+The other two queries are run by the program, so there is no need to do anything else with these.

@@ -1,0 +1,15 @@
+On buildings, floors, campus ...
+
+DLJ made changes to remove Campus. Instead of CAMPUS->BUILDING->ROOM it is now BUILDING->FLOOR->ROOM
+
+menu.asp has been changed
+Campus: to Building:
+Building: to Floor:
+
+
+The database has been changed
+tblCampus now refers to BUILDINGS
+tblBuilding now refers to FLOORS
+tblStore location has had the fields numCampusID, numBuildingID changed to reflect this
+tblStoreLocation has has the field numBuildingID changed to reflect this
+
