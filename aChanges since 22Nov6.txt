@@ -1,0 +1,91 @@
+22Nov2006
+UpdateChemicals.asp
+(1) The line 297
+if rsChemicals("numStoreTypeID") = "1" then %>
+and 422
+enf if
+was commented out. Removed comment, since this line is required to avoid PG calcs for non DG stores.
+
+(2) Removed <P> tags around 
+Dangerous Goods Store
+	<% if rsChemicals("boolLicensedDepot") then %>
+		, Licensed Depot
+	<% end if %>
+<br>Maximum Storage Capacity: <%= rsChemicals("strMaxStorage") %> <br>
+Depot Class: <%= rsChemicals("strDepotClass") %>
+to save space.
+
+28Nov2006
+Changed UpdateRiskAssessment.asp and AddRisk Assessment.asp to include "Dangerous Good" in heading:
+<FONT face=Arial size=5><STRONG>Risk Assessment for 
+the Use of a Hazardous Substance or Dangerous Good</STRONG></FONT>
+
+1Dec2006
+Changed UpdateChemicals.asp so that the "Size" filed is no longer read only.
+Changed UpdateChemicals.asp to allow "y" as checked yes in hazardous (as well as "Yes")
+
+5December2006
+Updated DgmsSearchResults.asp so that it works
+Uncommented reference to DgmsSearchResults.asp in NewSeach.html
+
+16 January2007 - DLJ
+Fixed bug in AddChemical.asp . There was an extra comma in the insert SQL
+Fixed another bug in AddChemical.asp. Put units (g,ml, L, kg) radiobuttons in non-stores add chemical by commenting out if-else-then statements.
+
+17January2007 -DLJ
+Commented out
+	<%'if rsChemicals("numStoreTypeID")= "1" then%>
+in line 486 of UpdateChemicals.asp. 
+Commented out
+'if inAction = "F" then
+and corresponding endif
+in line 144 of UpdateChemicals.asp.
+Reason - quantity and size were not updating. Quantity was made NULL and Size did not change.
+
+
+14May2007 - DLJ
+Fixed up syntax error in EditPreferences.asp
+that gave problem when adding floor.
+
+
+29 Feb2008
+Was getting error
+Request object error 'ASP 0104 : 80004005' Operation not Allowed :
+when updating the large inventory in DG3 store.
+Problem fixed.
+Was a server side issue. Needed to change the metabase.XML which is located in c:\Windows\System32\Inetsrv find the line "AspMaxRequestEntityAllowed" from 200 kb to 500 kb.
+
+
+
+20March2008
+"RA Done" field reporting incorrectly in chemical search
+Changed SearchChemicalsResults.asp 
+boolRADone = rsChemicals(24) changed to that as show below to the absolute name of the field
+
+    <TD><% dim boolRADone
+             boolRADone = rsChemicals("numRiskAssessmentId") 
+             if len(boolRADone)>0  then
+             %>Yes<%
+             else
+              %>No<%
+             end if
+             %></TD>
+
+
+September2008
+Many changes are listed in requirements document. Main changes are:
+- add DG summary tables for all locations
+- remove any differention between DG and non-DG stores
+- delete redundant fields, add and rearrange others
+- make it so RA cannot be deleted unless chemical is deleted first
+- fix error with space between size and units
+
+
+6November2009
+UN Number, PG and Poisons Schedule are not appearing after being entered in Add a New Chemical
+DLJ edited AddChemical.asp
+line 120 fixed typo txtPoison to txtPoisons
+line 93  change from strPGV = request("txtPG") to strPGV = Request.Form("txtPG")
+line 102 and 123 commented out if numStoreTypeID = "1" then end if
+
+

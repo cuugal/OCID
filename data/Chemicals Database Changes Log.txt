@@ -1,0 +1,7 @@
+Added new field to tblOccupier called strOccupierAddress
+1Dec2006
+Added new table tblDGClass 
+
+8May2007 Set Referential Integrity on tblLocation --- tblChemicalContainer to CASCADE DELETE. This was the original setting, but must have been changed by previous developer.
+
+10 Sep 2008 - increase strStoreNotes field in tblLocation to 15 characters (from 10 originally). cl/ehs

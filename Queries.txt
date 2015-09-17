@@ -1,0 +1,21 @@
+Query name: updateChemicalTableDetails
+Purpose: To be manually run to add standard dangerous goods data into the tblChemicalContainer from the DGData table. Change the number in the query to tell it which items to update from. Existing query.
+
+
+Query name: updateStrStoreNotesTextField
+Purpose: To be run manually as a once off to modify existing databases. Increases field size to hold 50 characters. Created Sept2008
+SQL: alter table tblLocation alter column strStoreNotes text(50);
+
+
+Query name: qryChemicalRiskAssessment
+Purpose: Referenced by program code. Modified Sept2008
+SQL: SELECT tblChemicalContainer.strChemicalName, tblRiskAssessment.strWorkActivity, tblRiskAssessment.strAssessorsName, tblRiskAssessment.dtmDateOfAssessment, tblRiskAssessment.strRiskControlled, tblChemicalContainer.numChemicalContainerID, tblRiskAssessment.numRiskAssessmentID, tblLocation.strStoreManager, tblStoreLocation.strStoreLocation, tblLocation.numLocationID, tblChemicalContainer.strHazardous, tblLocation.numBuildingID, tblLocation.numCampusID, tblLocation.dtmLastUpdated, tblBuilding.strBuildingName, tblCampus.strCampusName, tblStoreType.strStoreType, tblChemicalContainer.strSpecificLocation, tblLocation.strStoreNotes
+FROM (tblStoreType INNER JOIN (tblStoreLocation INNER JOIN (tblCampus INNER JOIN (tblBuilding INNER JOIN tblLocation ON tblBuilding.numBuildingID = tblLocation.numBuildingID) ON (tblCampus.numCampusID = tblBuilding.numCampusID) AND (tblCampus.numCampusID = tblLocation.numCampusID)) ON (tblStoreLocation.numStoreLocationID = tblLocation.numStoreLocationID) AND (tblBuilding.numBuildingID = tblStoreLocation.numBuildingID)) ON tblStoreType.numStoreTypeID = tblLocation.numStoreTypeID) INNER JOIN (tblChemicalContainer LEFT JOIN tblRiskAssessment ON tblChemicalContainer.numChemicalContainerID = tblRiskAssessment.numChemicalContainerID) ON tblLocation.numLocationID = tblChemicalContainer.numLocationID
+ORDER BY tblChemicalContainer.strChemicalName, tblRiskAssessment.strWorkActivity;
+
+
+Query name: qryDangerousGood
+Purpose: Referenced from program code. Created Sept2008
+SQL:SELECT tblLocation.numLocationID AS numLocationID, tblLocation.numBuildingID AS numBuildingID, tblLocation.numCampusID AS numCampusID, tblLocation.numStoreLocationID AS numStoreLocationID, tblLocation.numStoreTypeID AS numStoreTypeID, tblChemicalContainer.numQuantity AS numQuantity, tblChemicalContainer.strContainerSize AS strContainerSize, tblChemicalContainer.strDangerousGoodsClass AS strDangerousGoodClass, tblChemicalContainer.strPG AS PG, Mid(tblChemicalContainer.strContainerSize,1,InStr(1,tblChemicalContainer.strContainerSize," ")) AS num, Switch(UCase(Mid(tblChemicalContainer.strContainerSize,InStr(1,tblChemicalContainer.strContainerSize," ")+1))=UCase('ml'),(([num]/1000)*[tblChemicalContainer.numQuantity]),UCase(Mid(tblChemicalContainer.strContainerSize,InStr(1,tblChemicalContainer.strContainerSize," ")+1))=UCase('g'),(([num]/1000)*[tblChemicalContainer.numQuantity]),UCase(Mid(tblChemicalContainer.strContainerSize,InStr(1,tblChemicalContainer.strContainerSize," ")+1))=UCase('mg'),([num]/1000000)*[tblChemicalContainer.numQuantity],UCase(Mid(tblChemicalContainer.strContainerSize,InStr(1,tblChemicalContainer.strContainerSize," ")+1))=UCase('l'),[num]*[tblChemicalContainer.numQuantity],UCase(Mid(tblChemicalContainer.strContainerSize,InStr(1,tblChemicalContainer.strContainerSize," ")+1))=UCase('kg'),[num]*[tblChemicalContainer.numQuantity]) AS Total
+FROM tblBuilding, tblStoreLocation, tblLocation, tblStoreType, tblChemicalContainer
+WHERE (((tblBuilding.numBuildingID)=[tblLocation].[numBuildingID]) AND ((tblStoreLocation.numStoreLocationID)=[tblLocation].[numStoreLocationID]) AND ((tblStoreType.numStoreTypeID)=[tblLocation].[numStoreTypeID]) AND ((tblChemicalContainer.numLocationID)=[tblLocation].[numLocationID]));

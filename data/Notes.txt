@@ -1,0 +1,12 @@
+
+
+Data type mismatch in criteria expression.
+This sort of error means a problem with the data integrity. Affects DG calculations. eg.g if a i is entered in place of a 1. Need data validation on input.
+
+To add a new person - add to access table. They can then be attributed to a new or existing facility in the front-end. 
+
+
+To change a persons name.
+- Backup DB
+- Change login name in the tblLocation (strLoginID)
+- Change login details in tblAccess (strLoginID, password). First and last name as well.

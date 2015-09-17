@@ -1,0 +1,110 @@
+<!-- This document was created with HomeSite 2.5 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<html>
+<head>
+	<title>Menu</title>
+<script LANGUAGE="javascript">
+<!--
+
+function ChangeResults(page){
+	parent.frames["Results"].location.href = page
+	return true
+	}
+//-->
+</script>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var da = (document.all) ? 1 : 0;
+var pr = (window.print) ? 1 : 0;
+var mac = (navigator.userAgent.indexOf("Mac") != -1); 
+function printPage(frame, arg) {
+  if (frame == window) {
+    printThis();
+  } else {
+    link = arg; // a global variable
+     printFrame(frame);
+  }
+  return false;
+}
+
+function printThis() {
+  if (pr) { // NS4, IE5
+    window.print();
+  } else if (da && !mac) { // IE4 (Windows)
+    vbPrintPage();
+  } else { // other browsers
+    alert("Sorry, your browser doesn't support this feature.");
+  }
+}
+
+function printFrame(frame) {
+  if (pr && da) { // IE5
+    frame.focus();
+    window.print();
+    link.focus();
+  } else if (pr) { // NS4
+    frame.print();
+  } else if (da && !mac) { // IE4 (Windows)
+    frame.focus();
+    setTimeout("vbPrintPage(); link.focus();", 100);
+  } else { // other browsers
+    alert("Sorry, your browser doesn't support this feature.");
+  }
+}
+if (da && !pr && !mac) with (document) {
+  writeln('<OBJECT ID="WB" WIDTH="0" HEIGHT="0" CLASSID="clsid:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>');
+  writeln('<' + 'SCRIPT LANGUAGE="VBScript">');  
+  writeln('Sub window_onunload');
+  writeln('  On Error Resume Next');  
+  writeln('  Set WB = nothing');
+  writeln('End Sub'); 
+  writeln('Sub vbPrintPage');
+  writeln('  OLECMDID_PRINT = 6');
+  writeln('  OLECMDEXECOPT_DONTPROMPTUSER = 2');
+  writeln('  OLECMDEXECOPT_PROMPTUSER = 1');  
+  writeln('  On Error Resume Next');
+  writeln('  WB.ExecWB OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER');
+  writeln('End Sub');  
+  writeln('<' + '/SCRIPT>');
+}
+// --></SCRIPT>
+
+	<link rel="shortcut icon" href="http://www.uts.edu.au/favicon.ico" type="image/x-icon" />
+</head>
+
+<style type="text/css">
+H3, H4, p {margin-top: 0px}
+</style>
+
+<body BGCOLOR="#FFFFFF" LINK="#FFFFFF" VLINK="#FFFFFF" ALINK="#FFFF00">
+<div align="center">
+<table WIDTH="100%" BORDER="0" VALIGN="TOP" cellpadding="0" cellspacing ="0" bordercolorlight="#000000" bordercolordark="#000000">
+<tr>
+	<td ALIGN="CENTER" VALIGN="TOP" width="29" bgcolor="#666666"><p><img src="uts_logo.gif"></p></td>
+	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#666666"><font FACE="Arial" color=#f2e70d>
+		<H3>OCID</H3></FONT></td>
+	
+	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#666666"><font FACE="Arial" COLOR=#3333ff>
+		<a HREF="SearchChemicals.asp" onclick="ChangeResults('NewSearch.html')" TARGET="Search" NAME="hplSearchChemicals"><h3>Search Chemicals</h3></a></td>
+	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#666666"><font FACE="Arial" COLOR="Green">
+		<a HREF="UpdateAdd.asp" onclick="ChangeResults('NewUpdateAdd.html')" TARGET="Search" NAME="hplUpdateAdd"><h3>Update &amp; Add</h3></a></td>
+	
+	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#666666"><font FACE="Arial" COLOR="Orange">
+		<a HREF="SearchRiskAssessment.asp" onclick="ChangeResults('NewSearchRiskAssessment.html')"TARGET="Search" NAME="hplSearchRiskAssessment"><h3>Risk Assessment</h3></a></td>
+	
+	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#666666"><font FACE="Arial" COLOR=#ff3300>
+		<a HREF="AdministratorUpdateAdd.asp" onclick="ChangeResults('NewAdministratorUpdateAdd.html')"TARGET="Search" NAME="hplAdmin"><h3>Admin</h3></a></td>
+
+	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#666666"><A HREF="#" onClick="return printPage(parent.Results, this)"><h4>
+	<font FACE="Arial" color="#FFFF00">PRINT</font></h4></A></td>
+
+
+</tr>
+</table>
+</div>
+</font>
+
+</body>
+</html>
