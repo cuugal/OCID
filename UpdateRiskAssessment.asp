@@ -120,6 +120,9 @@ rsRA.Open strSQL, conn, 3, 3
         <TD>Substance:  <b><%= strChemicalName %></b></TD>
     </TR>
     <TR>
+        <TD>Risk Assessment No.:  <b><%= numRiskAssessmentID %></b></TD>
+    </TR>
+    <TR>
         <TD>Name of Assessor:  <INPUT name=strAssessorsName value="<%=rsRA("strAssessorsName")%>"></TD>
         <!--TD>Name of Assessor:  <%= strAssessorsName %></TD-->
 		<TD>Supervisor:  <b><%= strStoreManager %></b></TD>

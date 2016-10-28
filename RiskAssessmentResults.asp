@@ -157,6 +157,7 @@ Store Type: <%=rsLocation("strStoreType") + ", " + rsLocation("strStoreNotes")%>
 
 <TABLE WIDTH="100%" BORDER=1 ALIGN="center" VALIGN = "TOP">
 <TR ALIGN="left" VALIGN="top" BGCOLOR="yellow">
+	<TD>RA No.</TD>
 	<TD>Name</TD>
 	<TD>Assessors Name</TD>
 	<TD>Assessment Date</TD>
@@ -175,6 +176,7 @@ Store Type: <%=rsLocation("strStoreType") + ", " + rsLocation("strStoreNotes")%>
 	colorText = "" 
 	%>
 <TR>
+	<TD><%= rsRA("numRiskAssessmentID") %></TD>
 	<TD><%= rsRA("strChemicalName") %></TD>
 	<TD> <%= rsRA("strAssessorsName") %></TD>
 	<% 
