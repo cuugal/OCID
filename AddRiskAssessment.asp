@@ -142,7 +142,7 @@ strDate = DanDate(Date, "%d/%m/%Y" )
 
 <table border="0" cellpadding="0" cellspacing="0" width="98%">
 	<TR>
-		<TD colSpan=4 bgcolor = #dddddd><STRONG>1. DESCRIPTION OF HAZARD</STRONG></TD>
+		<TD colSpan=4 bgcolor = #dddddd><STRONG>1. DESCRIPTION OF ACTIVITY USING CHEMICAL</STRONG></TD>
 	</TR>
 	<TR>
 		<TD>Work activity description. Include quantities and concentrations of the substance(s) used.</TD>

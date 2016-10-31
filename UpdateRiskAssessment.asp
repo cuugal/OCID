@@ -156,7 +156,7 @@ rsRA.Open strSQL, conn, 3, 3
 
 <TABLE border=0 cellPadding=0 cellSpacing=0 width=98%>
 	<TR>
-		<TD colspan="4" bgcolor = #dddddd><STRONG>1. DESCRIPTION OF HAZARD</STRONG></TD>
+		<TD colspan="4" bgcolor = #dddddd><STRONG>1. DESCRIPTION OF ACTIVITY USING CHEMICAL</STRONG></TD>
 	</TR>
 	<TR>
 		<TD>Work activity description. Include quantities and concentrations of the substance(s) used.</TD>
