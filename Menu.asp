@@ -111,16 +111,16 @@ H3, H4, p {margin-top: 0px}
 	<img border="0" src="ocid-logo.gif" width="96" height="29" align="left">
 	</td>
 	<td align="left" width="12">
-	<font size="2" >v4.0</font>
+	<font size="2" >v4.1</font>
 	</td>
 	
 	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#FFFFFF"><font FACE="Arial" COLOR=#3333ff>
 		<a HREF="SearchChemicals.asp" onclick="ChangeResults('NewSearch.html')" TARGET="Search" NAME="hplSearchChemicals"><h3>
 	<font color="#000080">Search Chemicals</font></h3></a></td>
 	
-	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#FFFFFF"><font FACE="Arial" COLOR="Orange">
+	<!--td ALIGN="CENTER" VALIGN="TOP" bgcolor="#FFFFFF"><font FACE="Arial" COLOR="Orange">
 	<a HREF="SearchRiskAssessment.asp" onclick="ChangeResults('NewSearchRiskAssessment.html')"TARGET="Search" NAME="hplSearchRiskAssessment"><h3>
-	<font color="#008000">Risk Assessment</font></h3></a></td>
+	<font color="#008000">Risk Assessment</font></h3></a></td-->
 	
 	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#FFFFFF"><font FACE="Arial" COLOR="Green">
 	<a HREF="UpdateAdd.asp" onclick="ChangeResults('NewUpdateAdd.html')" TARGET="Search" NAME="hplUpdateAdd"><h3>
@@ -196,7 +196,7 @@ set connBuilding = Server.CreateObject("ADODB.Connection")
 connBuilding.open constr
 set buildingLocation = Server.CreateObject("ADODB.Recordset")
 strBuildingSQL = "SELECT numBuildingID, strBuildingName FROM tblBuilding WHERE numCampusID="
-strBuildingSQL = strBuildingSQL + cstr(numCampusID) + " ORDER BY numBuildingID"
+strBuildingSQL = strBuildingSQL + cstr(numCampusID) + " ORDER BY strBuildingName"
 buildingLocation.Open strBuildingSQL, connBuilding, 3, 3
 'response.write(strBuildingSQL)
 

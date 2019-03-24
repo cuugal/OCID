@@ -100,6 +100,10 @@ function formfocus() {
 		<input type="submit" value="Login" name="btnLogin" />&nbsp;&nbsp;&nbsp;<input type="reset" value="Clear" name="btnReset" />
 	</div>
 	</fieldset>
+	</br>
+	<p>NOTE: Risk Assessments are no longer maintained on OCID. </br>Please use <a href="http://www.orr.uts.edu.au">Online Risk Register</a> for chemical risk assessments.</p>
+	</br>
+	If you have forgotten your Facility Supervisor (edit) password,</br> please email: <a href="mailto:david.lloyd-jones@uts.edu.au">david.lloyd-jones@uts.edu.au</a>.
 </form>
 </div>
 
@@ -112,8 +116,9 @@ function formfocus() {
 			<li>View : <a href="http://www.nicnas.gov.au/publications/CAR/">NICNAS Public Chemical Assessment Reports</a></li>
 			<li>Search for a CAS number at <a href="http://www.chemexper.com/">www.chemexper.com</a></li>
 			<li>Search the <a href="http://hsis.ascc.gov.au/SearchHS.aspx">Australian Safety and Compensation Council (ASCC) Hazardous Substances Information System</a></li>  -->
-			<li><a href="http://www.safetyandwellbeing.uts.edu.au">UTS Safety &amp; Wellbeing: Chemical safety</a></li>
-			<li><a href="TEMPLATE_OCID3-2.xls">Excel spreadsheet of OCID fields</a> (Used for setting up a location in OCID.)</li>
+			<li><a href="https://www.uts.edu.au/about/safety-and-wellbeing/preventing-injury-and-illness/hazard-management/chemical">UTS Safety &amp; Wellbeing: Chemical safety</a></li>
+			<li><a href="../TEMPLATE_OCID3-2.xls">Excel spreadsheet of OCID fields</a> (Used for setting up a location in OCID.)</li>
+			<li><a href="../All_OCID_Science_Risk_Assessments_at12June2018.xls">Archive of all Science Risk Assessments</a> (as at 12 June 2018) - 1.5Mb</li>
 		</ul>
 </div>
 

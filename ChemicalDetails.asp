@@ -127,20 +127,36 @@ strLocation = rsBuildingCampus("strCampusName") + ", " + rsBuildingCampus("strBu
            </FONT></TD>
 	</TR>  
     <TR>
-        <TD><FONT 
-            face=Arial><STRONG>Location:</STRONG></FONT></TD>
-        <TD>
-            <FONT face=Arial><%= strLocation %></FONT></TD></TR>
+        <TD><FONT face=Arial><STRONG>Location:</STRONG></FONT></TD>
+        <TD><FONT face=Arial><%= strLocation %></FONT></TD>
+	</TR>
+
 
     <TR>
-        <TD><FONT 
-            face=Arial><STRONG>Hazardous ?:</STRONG></FONT></TD>
-        <TD>
+        <TD><FONT face=Arial><STRONG>Hazardous ?:</STRONG></FONT></TD>
+        <TD><FONT face=Arial><%= rsChemicals("strHazardous")%></FONT></TD>
+	</TR>
 
 
-<FONT face=Arial><%= rsChemicals("strHazardous")%></FONT>
+    <% if rsChemicals("strHazardous") = "Yes" then %>
 
-</TD></TR>
+		<TD><FONT face=Arial><STRONG>Hazard Category</STRONG></FONT></TD>
+		<TD><FONT face=Arial><%= rsChemicals("strHazardCategory")%></FONT></TD></TR>
+
+		<TD><FONT face=Arial><STRONG>Signal Words</STRONG></FONT></TD>
+		<TD><FONT face=Arial><%= rsChemicals("strSignalWord")%></FONT></TD></TR>
+
+		<TD><FONT face=Arial><STRONG>Pictogram Codes</STRONG></FONT></TD>
+        <TD><FONT face=Arial><%= rsChemicals("strPictogramCodes")%></FONT></TD></TR>
+
+		<TD><FONT face=Arial><STRONG>Hazard Statement Codes</STRONG></FONT></TD>
+        <TD><FONT face=Arial><%= rsChemicals("strHazardStatementCodes")%></FONT></TD></TR>
+
+		<TD><FONT face=Arial><STRONG>Hazard Statements</STRONG></FONT></TD>
+        <TD><FONT face=Arial><%= rsChemicals("strHazardStatements")%></FONT></TD></TR>
+   <% end if %>
+
+
 
     <TR>            
         <TD><FONT face=Arial><STRONG>DangerousGoodsClass:</STRONG></FONT></TD>
@@ -164,6 +180,8 @@ strLocation = rsBuildingCampus("strCampusName") + ", " + rsBuildingCampus("strBu
 	</TR>
 <%' end if %>
 
+
+
     <TD><FONT face=Arial><STRONG>Subsidary DG Class</STRONG></FONT></TD>
         <TD><FONT face=Arial><%= rsChemicals("strSubsDG")%></FONT></TD></TR>
 
@@ -176,7 +194,8 @@ strLocation = rsBuildingCampus("strCampusName") + ", " + rsBuildingCampus("strBu
 	<TD><FONT face=Arial><STRONG>Security Sensitive</STRONG></FONT></TD>
         <TD><FONT face=Arial><%= rsChemicals("strSSDG")%></FONT></TD></TR>
 
-    
+
+
     
     
 </TBODY></FONT> 

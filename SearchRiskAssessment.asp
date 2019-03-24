@@ -8,6 +8,16 @@
 <head>
 	<title>Risk Assessment Search</title>
 
+<!-- Added the following admin access warning after hiding link to Search Risk Assessments in the menu -->
+	<%
+Dim strLoginID
+	strLoginID = lcase(session("strLoginID"))
+	if strLoginID <> "admin" then
+		Response.Write "Only the Administrator has access to these pages. Please contact the administrator if you think you should be able to access this."
+		Response.End
+	end if
+%>
+
 <script language="JavaScript">
 <!--
 function locations() {

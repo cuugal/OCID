@@ -206,9 +206,10 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 '============================Code by Jeff, Show danger class item from summary =============================================
 	set rsSummary=server.CreateObject("ADODB.RecordSet")
 	strSummary="select Distinct(strDangerousGoodClass), PG, sum(Total) as TotalAmount from qryDangerousGood where numLocationID=" + numLocationID + " And numBuildingID=" + strBuildingLocationID + " and numCampusID=" + numCampusID + " and (PG <> '' and ucase(PG)<>ucase('none')) group by strDangerousGoodClass, PG order by strDangerousGoodClass"
+'response.write(strSummary)
 	rsSummary.open strSummary, conn
 
-'response.write(strSummary)
+
 
 			%>
         <TABLE style="WIDTH: 500px" width=536 border=0>
@@ -447,16 +448,19 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 	<TD>Grade</TD>
 
 	<TD>Other Info</TD>
-	<TD><font size="-1">Haz.?</font></TD>
-	<TD>R A Done</TD>
+	<TD>Hazardous?</TD>
+	<!--TD>R A Done</TD-->
     <TD>DG Class</TD>
     <TD>PG (I, II, III)</TD>
 	<!--<td>Strlogin</td>-->
 	
-	<%'AA Feb 2014 - hide SSDG from general users 
-	if strLoginId <> "science" then %>
-	<TD>SS</TD>
-	<% end if %>
+	<!--
+		<%'AA Feb 2014 - hide SSDG from general users 
+		if strLoginId <> "science" then %>
+		<TD>SS</TD>
+		<% end if %>
+	-->
+
 </TR>
     <% 
 		
@@ -511,7 +515,7 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 	<TD><%= rsChemicals("strGrade") %></TD>
 	<TD><%= rsChemicals("strOtherInfo") %></TD>
     <TD><%= rsChemicals("strHazardous") %></TD>        
-    <TD><% dim boolRADone
+    <!--TD><% dim boolRADone
              boolRADone = rsChemicals("numRiskAssessmentId") 
              'if len(boolRADone)>0  then
 			 if boolRADone>0  then
@@ -519,16 +523,19 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
              else
               %>No<%
              end if
-             %></TD>
+             %></TD-->
     <TD><%= rsChemicals("strDangerousGoodsClass") %></TD>
 	<TD><%= rsChemicals("strPG") %></TD>
 	<!--<td><%= rsChemicals("strLoginId") %></td>-->
+
 	
-	<% 'AA Feb 2014 - hide SSDG from general users
-	if strLoginId <> "science" then %>
-	<TD><%= rsChemicals("strSSDG") %></TD>
+		<!--
+			<% 'AA Feb 2014 - hide SSDG from general users
+			if strLoginId <> "science" then %>
+			<TD><%= rsChemicals("strSSDG") %></TD>
 	<% end if %>
-	
+	-->
+
 </TR>
     <% 
 	end if
