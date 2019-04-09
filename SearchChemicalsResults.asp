@@ -17,6 +17,7 @@ Dim strChemicalName
 Dim strCAS
 Dim strLocation
 Dim strSortByName
+Dim numBarcode
 
 'Function InjectionEncode(str)
 '	InjectionEncode=Replace(str,"'","'''")
@@ -67,7 +68,7 @@ strCAS = Request.Form("txtCAS1") + "-" + Request.Form("txtCAS2") + "-" + Request
 &" tblChemicalContainer.strOtherInfo, tblChemicalContainer.strCas,tblLocation.boolLicensedDepot, tblStoreType.strStoreType, tblStoreLocation.strStoreLocation,"_
 &" tblLocation.strStoreNotes, tblLocation.numStoreTypeID, tblLocation.numBuildingID, tblLocation.numCampusID, tblLocation.strStoreManager, tblLocation.dtmLastUpdated,"_
 &" tblChemicalContainer.strSpecificLocation, tblChemicalContainer.numQuantity, tblChemicalContainer.strContainerSize, tblChemicalContainer.strHazardous, "_
-&" tblChemicalContainer.strGrade, tblChemicalContainer.strDangerousGoodsClass, tblChemicalContainer.numLocationID, tblChemicalContainer.strUnNumber, tblChemicalContainer.strPG,"_
+&" tblChemicalContainer.strGrade, tblChemicalContainer.strDangerousGoodsClass, tblChemicalContainer.numLocationID, tblChemicalContainer.strUnNumber, tblChemicalContainer.numBarcode, tblChemicalContainer.strPG,"_
 &" tblCampus.strCampusName, tblBuilding.strBuildingName, tblChemicalContainer.strSSDG,   (select count(*) from tblRiskAssessment where tblRiskAssessment.numChemicalContainerId = tblChemicalContainer.numChemicalContainerId) as numRIskAssessmentId"_
  &" FROM ((((tblChemicalContainer RIGHT JOIN tblLocation ON tblLocation.numLocationId = tblChemicalContainer.numLocationId) INNER JOIN tblCampus ON tblCampus.numCampusId = tblLocation.numCampusId) "_
  &"INNER JOIN tblBuilding ON tblBuilding.numBuildingId = tblLocation.numBuildingId) INNER JOIN tblStoreType ON tblStoreType.numStoreTypeId = tblLocation.numStoreTypeId) "_
@@ -412,7 +413,9 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 
 <TR ALIGN="left" VALIGN="top" BGCOLOR="yellow">
 <!-- DLJ 4Aug15 added chemical ID number -->
+<!-- DLJ 5March2019 added Barcode ID-->
 	<TD>ID</TD>
+	<td>Barcode ID</td>
 	<TD>Name</TD>
 <% if numCampusID = "0" then %>
 	<td>Campus</td>
@@ -475,6 +478,8 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 <TR>
 	
 	<TD><font size="-1"><%= rsChemicals("numChemicalContainerID") %></font></TD>
+	<TD><font size="-1"><%= rsChemicals("numBarcode") %></font></TD>
+
 
 	<TD>
 	        <A HREF="ChemicalDetails.asp?numChemicalID=<%= rsChemicals("numChemicalContainerID") %>&numLocationID=<%=rsChemicals("numLocationID")%>">

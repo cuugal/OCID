@@ -2078,11 +2078,11 @@ do while not rsQueryA.EOF %>
     <TD align=middle width="25%" bgColor=#ffff00 colspan="4">Quantities ( L / Kg )</TD>
     </TR>
   <TR>
-  
+  <!-- check alignment of category with packing group -->
     <TD align=middle width="25%" bgColor=#FFFF00>DG Class</TD>
-    <TD align=middle width="25%" bgColor=#ffff00>PG I</TD>
-    <TD align=middle width="25%" bgColor=#ffff00>PG II</TD>
-    <TD align=middle width="25%" bgColor=#ffff00>PG III</TD>
+    <TD align=middle width="25%" bgColor=#ffff00>Category 1</TD>
+    <TD align=middle width="25%" bgColor=#ffff00>Category 2</TD>
+    <TD align=middle width="25%" bgColor=#ffff00>Category 3</TD>
     <TD align=middle width="25%" bgColor=#ffff00>Total</TD>
     </TR>
       
