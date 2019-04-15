@@ -61,29 +61,7 @@ set rsQueryOcc = Server.CreateObject("ADODB.Recordset")
   
 '***************************************************************************************************************************************
    
-    strSQL = "SELECT tblLocation.numLocationId AS numLocationId, strCampusName, strBuildingName, tblStorelocation.strStoreLocation AS strStoreLocation, strStoreType, strStoreNotes, strStoreManager"_
-&" FROM tblLocation, tblCampus, tblBuilding, tblStoreLocation, tblStoreType"_
-&" WHERE tblLocation.numCampusID =  tblCampus.numCampusID And"_
-&" tblLocation.numBuildingID =  tblBuilding.numBuildingID And"_
-&" tblLocation.numStoreLocationID =  tblStoreLocation.numStoreLocationID And"_
-&" tblLocation.numStoreTypeID =  tblStoreType.numStoreTypeID"_
-&" ORDER BY tblLocation.numLocationId "
 
-
-
-
-set rsQueryA = Server.CreateObject("ADODB.Recordset")
-	rsQueryA.Open strSQL,dcnDB
-'************************************************************************
-  
- strSQL = "SELECT tblLocation.numLocationId AS numLocationId,tblChemicalContainer.numQuantity AS PG, tblChemicalContainer.strPG AS strPG, tblChemicalContainer.strDangerousGoodsClass AS strDangertousGoodsClass, tblChemicalContainer.strContainerSize AS strContainerSize"_
-&" FROM (((tblChemicalContainer RIGHT JOIN tblLocation ON tblChemicalContainer.numLocationID = tblLocation.numLocationID)"_ 
-&" INNER JOIN tblBuilding ON tblBuilding.numBuildingID = tblLocation.NumBuildingID)"_
-&" INNER JOIN tblCampus ON tblCampus.numCampusID = tblLocation.NumCampusID)"_ 
-&" INNER JOIN tblStoreLocation ON tblStoreLocation.numStoreLocationID = tblLocation.numStoreLocationID "_
-&" ORDER BY tblLocation.numLocationId "
-set rsQueryB = Server.CreateObject("ADODB.Recordset")
-	rsQueryB.Open strSQL,dcnDB
 	
 %>
 
@@ -124,7 +102,37 @@ Dangerous Goods Manifest report</font><font face="Times New Roman"><br>Occupier&
 	</tr>
 </table>
 
-	  <% 
+
+
+<!--#INCLUDE FILE="DgmsTotal.asp"-->
+
+
+	  <%
+
+strSQL = "SELECT tblLocation.numLocationId AS numLocationId, strCampusName, strBuildingName, tblStorelocation.strStoreLocation AS strStoreLocation, strStoreType, strStoreNotes, strStoreManager"_
+&" FROM tblLocation, tblCampus, tblBuilding, tblStoreLocation, tblStoreType"_
+&" WHERE tblLocation.numCampusID =  tblCampus.numCampusID And"_
+&" tblLocation.numBuildingID =  tblBuilding.numBuildingID And"_
+&" tblLocation.numStoreLocationID =  tblStoreLocation.numStoreLocationID And"_
+&" tblLocation.numStoreTypeID =  tblStoreType.numStoreTypeID"_
+&" ORDER BY tblLocation.numLocationId "
+
+
+
+
+set rsQueryA = Server.CreateObject("ADODB.Recordset")
+rsQueryA.Open strSQL,dcnDB
+'************************************************************************
+
+strSQL = "SELECT tblLocation.numLocationId AS numLocationId,tblChemicalContainer.numQuantity AS PG, tblChemicalContainer.strPG AS strPG, tblChemicalContainer.strDangerousGoodsClass AS strDangertousGoodsClass, tblChemicalContainer.strContainerSize AS strContainerSize"_
+&" FROM (((tblChemicalContainer RIGHT JOIN tblLocation ON tblChemicalContainer.numLocationID = tblLocation.numLocationID)"_
+&" INNER JOIN tblBuilding ON tblBuilding.numBuildingID = tblLocation.NumBuildingID)"_
+&" INNER JOIN tblCampus ON tblCampus.numCampusID = tblLocation.NumCampusID)"_
+&" INNER JOIN tblStoreLocation ON tblStoreLocation.numStoreLocationID = tblLocation.numStoreLocationID "_
+&" ORDER BY tblLocation.numLocationId "
+set rsQueryB = Server.CreateObject("ADODB.Recordset")
+rsQueryB.Open strSQL,dcnDB
+
 	     	'*****************Applying the nested while loop for the required result
 dim numResult
 dim strNew
