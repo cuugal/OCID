@@ -83,25 +83,28 @@ Dangerous Goods Manifest report</font><font face="Times New Roman"><br>Occupier&
 		<td width="624" align="left">Outer warning placard may be required.</td>
 	</tr>
 </table>
-<p>Emergency Contact</p>
-<table border="1" width="56%" id="table4" height="22">
+<p>&nbsp;</p>
+<b>Emergency Contact</b>
+<table border="1" width="46%" id="table4" height="22">
 	<tr>
-		<td width="222" bgcolor="#ffff00" align="middle">Name</td>
-		<td width="106" bgcolor="#ffff00" align="middle">Position</td>
+		<td width="110" bgcolor="#ffff00" align="middle">Name</td>
+		<td width="60" bgcolor="#ffff00" align="middle">Position</td>
 		<td bgcolor="#ffff00" align="middle">Phone</td>
 	</tr>
 	<tr>
-		<td width="222" height="22"><%=rsQueryEC("strEmergencyContactName1")%></td>
-		<td width="106" height="22"><%=rsQueryEC("strEmergencyContactPosition1")%></td>
-		<td width="100" height="22"><%=rsQueryEC("strEmergencyContactPhone1")%></td>
+		<td width="110" height="22"><%=rsQueryEC("strEmergencyContactName1")%></td>
+		<td width="60" height="22"><%=rsQueryEC("strEmergencyContactPosition1")%></td>
+		<td width="40" height="22"><%=rsQueryEC("strEmergencyContactPhone1")%></td>
 	</tr>
 	<tr>
-		<td width="222" height="22"><%=rsQueryEC("strEmergencyContactName2")%></td>
-		<td width="106" height="22"><%=rsQueryEC("strEmergencyContactPosition2")%></td>
-		<td width="100" height="22"><%=rsQueryEC("strEmergencyContactPhone2")%></td>
+		<td width="110" height="22"><%=rsQueryEC("strEmergencyContactName2")%></td>
+		<td width="60" height="22"><%=rsQueryEC("strEmergencyContactPosition2")%></td>
+		<td width="40" height="22"><%=rsQueryEC("strEmergencyContactPhone2")%></td>
 	</tr>
 </table>
 
+<p>&nbsp;</p>
+<b>Total Quantities Summary Table</b> (Reporting Limit Manifest Quantities: Category 1 - 500L/Kg, Category 2 - 2500L/Kg, Category 3 - 10,000L/Kg)
 
 
 <!--#INCLUDE FILE="DgmsTotal.asp"-->
@@ -2133,18 +2136,18 @@ do while not rsQueryA.EOF %>
  
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 2</TD>
       <%if numTotalPI2 = 0 or numTotalPI2 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI2))%></TD><% numTotalPI2 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI2),2)%></TD><% numTotalPI2 = 0        
       end if  
       
       if numTotalPII2 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII2))%></TD><% numTotalPII2 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII2),2)%></TD><% numTotalPII2 = 0        
       end if 
       
       if numTotalPIII2 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII2))%></TD><% numTotalPIII2 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII2),2)%></TD><% numTotalPIII2 = 0        
       end if       
       if T2 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T2) %></TD></TR><% T2 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T2),2) %></TD></TR><% T2 = 0        
       end if  
       end if
       
@@ -2154,18 +2157,18 @@ do while not rsQueryA.EOF %>
         
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 3</TD>
       <%if numTotalPI3 = 0 or numTotalPI3 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI3))%></TD><% numTotalPI3 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI3),2)%></TD><% numTotalPI3 = 0        
       end if 
       
       if numTotalPII3 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII3))%></TD><% numTotalPII3 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII3),2)%></TD><% numTotalPII3 = 0        
       end if 
       
       if numTotalPIII3 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII3))%></TD><% numTotalPIII3 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII3),2)%></TD><% numTotalPIII3 = 0        
       end if       
       if T3 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T3) %></TD></TR><% T3 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T3),2) %></TD></TR><% T3 = 0        
       end if  
       end if
        '----------------------------FOURTH ROW ------------------------------------------------------------------------     
@@ -2175,18 +2178,18 @@ do while not rsQueryA.EOF %>
   
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 4</TD>
       <%if numTotalPI4 = 0 or numTotalPI4 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI4))%></TD><% numTotalPI4 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI4),2)%></TD><% numTotalPI4 = 0        
       end if 
       
       if numTotalPII4 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII4))%></TD><% numTotalPII4 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII4),2)%></TD><% numTotalPII4 = 0        
       end if 
       
       if numTotalPIII4 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII4))%></TD><% numTotalPIII4 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII4),2)%></TD><% numTotalPIII4 = 0        
       end if       
       if T4 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T4) %></TD></TR><% T4 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T4),2) %></TD></TR><% T4 = 0        
       end if  
       end if
        '----------------------------FIFTH ROW ------------------------------------------------------------------------     
@@ -2196,18 +2199,18 @@ do while not rsQueryA.EOF %>
   
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 5</TD>
       <%if numTotalPI5 = 0 or numTotalPI5= "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI5))%></TD><% numTotalPI5 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=Round((numTotalPI5),2)%></TD><% numTotalPI5 = 0        
       end if 
       
       if numTotalPII5 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII5))%></TD><% numTotalPII5 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=Round((numTotalPII5),2)%></TD><% numTotalPII5 = 0        
       end if 
       
       if numTotalPIII5 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII5))%></TD><% numTotalPIII5 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII5),2)%></TD><% numTotalPIII5 = 0        
       end if       
       if T5 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T5) %></TD></TR><% T5 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T5),2) %></TD></TR><% T5 = 0        
       end if  
       end if
        '----------------------------SIXTH ROW ------------------------------------------------------------------------     
@@ -2217,18 +2220,18 @@ do while not rsQueryA.EOF %>
   
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 6</TD>
       <%if numTotalPI6 = 0 or numTotalPI6 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI6))%></TD><% numTotalPI6 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI6),2)%></TD><% numTotalPI6 = 0        
       end if 
       
       if numTotalPII6 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII6))%></TD><% numTotalPII6 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII6),2)%></TD><% numTotalPII6 = 0        
       end if 
       
       if numTotalPIII6 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII6))%></TD><% numTotalPIII6 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII6),2)%></TD><% numTotalPIII6 = 0        
       end if       
       if T6 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T6) %></TD></TR><% T6 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T6),2) %></TD></TR><% T6 = 0        
       end if  
       end if
        '----------------------------SEVENTH ROW ------------------------------------------------------------------------     
@@ -2238,18 +2241,18 @@ do while not rsQueryA.EOF %>
   
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 7</TD>
       <%if numTotalPI7 = 0 or numTotalPI7 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI7))%></TD><% numTotalPI7 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI7),2)%></TD><% numTotalPI7 = 0        
       end if 
       
       if numTotalPII7 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII7))%></TD><% numTotalPII7 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII7),2)%></TD><% numTotalPII7 = 0        
       end if 
       
       if numTotalPIII7 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII7))%></TD><% numTotalPIII7 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII7),2)%></TD><% numTotalPIII7 = 0        
       end if       
       if T7 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T7) %></TD></TR><% T7 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T7),2) %></TD></TR><% T7 = 0        
       end if  
       end if
        '----------------------------EIGHT ROW ------------------------------------------------------------------------     
@@ -2259,18 +2262,18 @@ do while not rsQueryA.EOF %>
 
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 8</TD>
       <%if numTotalPI8 = 0 or numTotalPI8 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI8))%></TD><% numTotalPI8 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI8),2)%></TD><% numTotalPI8 = 0        
       end if 
       
       if numTotalPII8 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII8))%></TD><% numTotalPII8 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII8),2)%></TD><% numTotalPII8 = 0        
       end if 
       
       if numTotalPIII8 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII8))%></TD><% numTotalPIII8 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII8),2)%></TD><% numTotalPIII8 = 0        
       end if       
       if T8 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T8) %></TD></TR><% T8 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T8),2) %></TD></TR><% T8 = 0        
       end if  
       end if
 	  	         '----------------------------NINE ROW ------------------------------------------------------------------------     
@@ -2279,18 +2282,18 @@ do while not rsQueryA.EOF %>
       
       <TD align=middle width="25%" bgColor=#FFFFFF>Class 9</TD>
       <%if numTotalPI9 = 0 or numTotalPI9 = "" then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPI9))%></TD><% numTotalPI9 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPI9),2)%></TD><% numTotalPI9 = 0        
       end if 
       
       if numTotalPII9 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPII9))%></TD><% numTotalPII9 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPII9),2)%></TD><% numTotalPII9 = 0        
       end if 
       
       if numTotalPIII9 = 0 then %><TD align=middle width="7%" bgColor=#FFFFFF>0</TD><%           
-      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIII9))%></TD><% numTotalPIII9 = 0        
+      else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=round((numTotalPIII9),2)%></TD><% numTotalPIII9 = 0        
       end if       
       if T9 = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(T9) %></TD></TR><% T9 = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((T9),2) %></TD></TR><% T9 = 0        
       end if  
       end if
 	  
@@ -2312,7 +2315,7 @@ do while not rsQueryA.EOF %>
       else %> <TD align=middle width="25%" bgColor=#FFFFFF> <%=((numTotalPIIIN))%></TD><% numTotalPIIIN = 0        
       end if       
       if TN = 0 then %><TD align=middle width="25%" bgColor=#FFFFFF>0</TD></TR><%           
-      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=(TN) %></TD></TR><% TN = 0        
+      else %> <TD align=middle width="7%" bgColor=#FFFFFF> <%=Round((TN),2) %></TD></TR><% TN = 0        
       end if  
       end if
 	  
