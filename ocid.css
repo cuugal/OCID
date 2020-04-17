@@ -1,7 +1,235 @@
-body { width: 70%;
-padding-top: 1em;
-padding-bottom: 1em;
-/*padding-right: 23em;*/
-padding-left: 2em;
+body
+{
+    margin: 0;
+    padding: 0;
+    font-size: 90%;
+    font-family: arial, helvetica, sans-serif;
 }
 
+#header
+{
+    padding: 1.2em;
+    height: 50px;
+    background-color: #fffa;
+    margin-bottom: 10px;
+}
+
+#gutter
+{
+    float: left;
+    width: 3%;
+    height: 1px;
+}
+
+#col1
+{
+    float: left;
+    width: 48%;
+    background-color: #E8F2F9;
+    margin-bottom: 10px;
+    margin-left: 3%;
+    padding: 4px;
+}
+
+#col2
+{
+    float: left;
+    width: 11%;
+    background-color: #fff;
+    border: solid 1px #e8f2f0;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#col2 h2
+{
+    color: #000;
+    font-size: 1.1em;
+    padding: 0;
+}
+
+
+#col3
+{
+    float: left;
+    width: 21%;
+    margin-left: 4%;
+    background-color: #fff;
+    border: solid 1px #e8f2f0;
+
+    margin-bottom: 10px;
+}
+
+#footer
+{
+    padding: 0.3em 0.5em;
+    clear: both;
+    font-size: 0.75em;
+    background-color: #c7e3f9;
+    color: #000;
+    margin: 0.3em;
+}
+
+h1
+{
+    margin: 0;
+    padding: 5px;
+}
+
+h2
+{
+    margin-top: 0;
+    padding-top: 7px;
+    font-size: 1.1em;
+}
+
+h2, p, h3
+{
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+h3
+{
+    margin-top: 0;
+    padding-top: 7px;
+    font-size: 1em;
+}
+
+
+/* Style the mouse over for the index page nav items */
+#navcontainer { margin: 0; padding-left: 0; }
+
+#navcontainer ul { vertical-align: left;
+    width: 3em; margin: 0.4em;
+    padding: 0.4em 0 0 0;
+    list-style-type: none;
+    font-family: verdana, arial, Helvetica, sans-serif; border: solid 1px red; 		}
+
+#navcontainer li { margin: 0.6em;  list-style-type: none; width: 100%;}
+
+#navcontainer a {
+    display: block;
+    padding: 0.75em;
+    width: 60%;
+    color: #000;
+    background-color: #e8f2f9;
+    text-decoration: none;
+    font-size: 0.8em;
+    border: solid 1px #aad0ea;}
+
+#navcontainer a:hover {
+    color: #000;
+    background-color: #c7e3f9;
+    text-decoration: none; }
+
+
+/* End of index page nav item styling */
+
+hr { background-color: #A1CBC3; color: #A1CBC3; height: 1px; border: 0; margin-top: 0.3em; margin-bottom: 0.3em; width: 60%;}
+
+form {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    min-width: 560px;
+    max-width: 620px;
+    width: 590px;
+}
+
+form fieldset {
+    clear: both;
+    font-size: 100%;
+    border: none;
+    padding: 10px;
+    margin: 0 0 0 0;
+}
+
+label {
+    font-size: 100%;
+}
+
+label u {
+    font-style: normal;
+    text-decoration: underline;
+}
+
+input, select, textarea {
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 100%;
+    color: #000000;
+}
+
+textarea {
+    overflow: auto;
+}
+
+form div {
+    clear: left;
+    display: block;
+    width: 354px;
+    zoom: 1;
+    margin: 5px 0 0 0;
+    padding: 1px 3px;
+}
+
+form fieldset div.notes {
+    float: right;
+    width: 158px;
+    height: auto;
+    margin: 0 0 10px 10px;
+    padding: 5px;
+    border: 1px solid #666666;
+    background-color: #ffffe1;
+    color: #666666;
+    font-size: 88%;
+}
+
+
+form div fieldset {
+    clear: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #666666;
+    margin: 0 0 0 144px;
+    padding: 0 5px 5px 5px;
+    width: 197px;
+}
+
+form div label {
+    display: block;
+    float: left;
+    width: 130px;
+    padding: 3px 5px;
+    margin: 0 0 5px 0;
+    text-align: right;
+}
+
+form div.required label, label.required {
+    font-weight: bold;
+}
+
+
+form div select {
+    width: 200px;
+    padding: 1px 3px;
+    margin: 0 0 0 0;
+}
+
+form div input.inputText, form div input.inputPassword {
+    width: 200px;
+    padding: 1px 3px ;
+    margin: 0 0 0 0;
+}
+
+
+
+form div select.selectOne, form div select.selectMultiple {
+    width: 211px;
+    padding: 1px 3px;
+}
+
+form div.submit {
+    width: 214px;
+    padding: 0 0 0 146px;
+}

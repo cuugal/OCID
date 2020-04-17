@@ -51,7 +51,7 @@ End if
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 	<title>Online Chemical Inventory Database (OCID) - Science login</title>
-	<link rel="stylesheet" type="text/css" href="http://www.ocid.uts.edu.au/ocid.css" />
+	<link rel="stylesheet" type="text/css" href="/ocid.css" />
 <script type="text/javascript">
 //This focuses the user client on the login ID form, for ease of login - CL 9/5/2011
 function formfocus() {
@@ -62,9 +62,9 @@ function formfocus() {
 </head>
 <body>
 <div id="header">
-<img border="0" src="http://www.ocid.uts.edu.au/OCIDScience/uts-logo.gif" width="130" height="29" align="left">
+<img border="0" src="/uts-logo.gif" width="130" height="29" align="left">
 	<div style="float: right;">
-		<a href="http://www.ocid.uts.edu.au" title="Online Chemical Inventory Database"><img border="0" src="http://www.ocid.uts.edu.au/images/ocid-logo2.gif" width="96" height="29"></a><br />
+		<a href="http://www.ocid.uts.edu.au" title="Online Chemical Inventory Database"><img border="0" src="/ocid-logo2.gif" width="96" height="29"></a><br />
 	</div>
 	<div style="clear: both; float: right;"><sup style="font-size: 0.9em;">v3.1</sup></div>
 </div>

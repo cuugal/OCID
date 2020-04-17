@@ -65,6 +65,7 @@ strCAS = Request.Form("txtCAS1") + "-" + Request.Form("txtCAS2") + "-" + Request
 '******************************************New Query*************************************************************************************
 
  strSQL ="SELECT tblChemicalContainer.numChemicalContainerID, tblChemicalContainer.strChemicalName, tblLocation.strBuildingLocation, tblLocation.strLoginId,"_
+&" tblChemicalContainer.numSize, tblChemicalContainer.strContainerUnits ,"_
 &" tblChemicalContainer.strOtherInfo, tblChemicalContainer.strCas,tblLocation.boolLicensedDepot, tblStoreType.strStoreType, tblStoreLocation.strStoreLocation,"_
 &" tblLocation.strStoreNotes, tblLocation.numStoreTypeID, tblLocation.numBuildingID, tblLocation.numCampusID, tblLocation.strStoreManager, tblLocation.dtmLastUpdated,"_
 &" tblChemicalContainer.strSpecificLocation, tblChemicalContainer.numQuantity, tblChemicalContainer.strContainerSize, tblChemicalContainer.strHazardous, "_
@@ -446,7 +447,9 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 <!-- DLJ 23Jan8 changed order of fields and added DG Class-->
 
 	<TD>Quantity</TD>	
-	<TD>Size</TD>
+	<!--<TD>Size</TD>-->
+	<td>Size</td>
+	<td>Units</td>
 	<TD>CAS #</TD>
 	<TD>Grade</TD>
 
@@ -515,7 +518,10 @@ str="select distinct(numStoreTypeID) AS storeTypeID from qryDangerousGood where 
 <!-- DLJ 23Jan8 moved UN Number and pg out of above if statement so they are shown in ALL search results -->
 <!-- DLJ 23Jan8 changed order of fields and added DGClass -->
 	<TD><%= rsChemicals("numQuantity") %></TD>
-	<TD><%= rsChemicals("strContainerSize") %></TD>  
+	<!--<TD><%= rsChemicals("strContainerSize") %></TD>  -->
+	<TD><%= rsChemicals("numSize") %></TD>
+	<TD><%= rsChemicals("strContainerUnits") %></TD>
+	
 	<TD><%= rsChemicals("strCas") %></TD> 
 	<TD><%= rsChemicals("strGrade") %></TD>
 	<TD><%= rsChemicals("strOtherInfo") %></TD>

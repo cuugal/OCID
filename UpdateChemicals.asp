@@ -56,6 +56,10 @@ If Request.Form("UPDATE") = "SAVE Changes to Chemical Inventory" then
 	Dim numQuantity
 	Dim strContainerOwner
 	Dim strContainerSize
+
+	Dim numSize
+	Dim strContainerUnits
+
 	Dim strCAS
 	Dim strGrade
 	Dim strHazardous
@@ -96,9 +100,14 @@ If Request.Form("UPDATE") = "SAVE Changes to Chemical Inventory" then
 			strSpecificLocation = Request.Form("txtSpecificLocation" + cstr(numRecordCounter))
 			numQuantity = Request.Form("txtQuantity" + cstr(numRecordCounter))
 			strContainerSize = Request.Form("txtContainerSize" + cstr(numRecordCounter))
+
+			if Request.Form("txtSize"+cstr(numRecordCounter)) <> "" then
+				strContainerSize = Request.Form("txtSize"+cstr(numRecordCounter))& " " & Request.Form("txtContainerUnits"+cstr(numRecordCounter))
+			end if
+
             spacePosition=instr(1,strContainerSize," ")
             if spacePosition=0 then
-            isCorrectSize=false
+           		isCorrectSize=false
 			exit for
             else
                splitContainerS=mid(strContainerSize,1,instr(1,strContainerSize," ")-1)
@@ -123,7 +132,11 @@ If Request.Form("UPDATE") = "SAVE Changes to Chemical Inventory" then
 			strSubsDG = Request.Form("txtsubsDG" + cstr(numRecordCounter))
 			strHazchem = Request.Form("txtHazchem" + cstr(numRecordCounter))
 			strPoisons = Request.Form("txtPoisons" + cstr(numRecordCounter))
-			
+
+			numSize = Request.Form("txtSize" + cstr(numRecordCounter))
+            strContainerUnits = Request.Form("txtContainerUnits" + cstr(numRecordCounter))
+
+
 			'Put together CAS number
 			'strCASa = Request.Form("txtCASa" + cstr(numRecordCounter)) 
 			'strCASb = Request.Form("txtCASb" + cstr(numRecordCounter)) 
@@ -206,7 +219,15 @@ If Request.Form("UPDATE") = "SAVE Changes to Chemical Inventory" then
 			strSQL = strSQL + "strPoisons = '" + InjectionEncode(strPoisons) + "', "
 			strSQL = strSQL + "strUnNumber = '" + strUnNumber + "', "
 			strSQL = strSQL + "strPG = '" + strPG + "', "
-			strSQL = strSQL + "strOtherInfo = '" + InjectionEncode(strOtherInfo) + "' "
+			strSQL = strSQL + "strOtherInfo = '" + InjectionEncode(strOtherInfo) + "', "
+			
+			if numSize <> "" then
+				strSQL = strSQL + "numSize = " + InjectionEncode(numSize) + ", "
+			end if
+
+			strSQL = strSQL + "strContainerUnits = '" + InjectionEncode(strContainerUnits) + "' "
+
+
 			strSQL = strSQL + "WHERE (numChemicalContainerID = " + numChemicalID + ")"
 
 				'Response.Write ("Function currently not working")
@@ -265,6 +286,7 @@ else
 strCAS = Request.Form("txtCAS1") + "-" + Request.Form("txtCAS2") + "-" + Request.Form("txtCAS3")
 
 strSQL = "SELECT tblChemicalContainer.numChemicalContainerID, tblChemicalContainer.strCAS, tblChemicalContainer.strContainerOwner, tblChemicalContainer.strChemicalName, tblLocation.strBuildingLocation, tblLocation.boolLicensedDepot, tblStoreType.strStoreType,"
+strSQL = strSQL + "tblChemicalContainer.numSize, tblChemicalContainer.strContainerUnits, "
 strSQL = strSQL + "tblStoreLocation.strStoreLocation, tblLocation.strStoreNotes, tblLocation.numStoreTypeID, tblLocation.numBuildingID, tblLocation.numCampusID, tblLocation.strStoreManager,tblLocation.dtmLastUpdated, tblChemicalContainer.strSpecificLocation, "
 strSQL = strSQL + "tblChemicalContainer.numQuantity, tblChemicalContainer.strDangerousGoodsClass, tblChemicalContainer.strContainerSize, tblChemicalContainer.strHazardous, tblChemicalContainer.strGrade, tblChemicalContainer.numLocationID, "
 strSQL = strSQL + "tblChemicalContainer.strUnNumber, tblChemicalContainer.strPG, tblChemicalContainer.strOtherInfo,tblChemicalContainer.strSSDG,tblChemicalContainer.strsubsDG,tblChemicalContainer.strHazchem,tblChemicalContainer.strPoisons "
@@ -361,7 +383,10 @@ Location ID: <%= rsChemicals("numLocationID") %>
 	<TD>Name</TD>
 	<TD>Specific Location</TD>
 	<td>Quantity</td>
-	<TD>Size</TD>
+	<!--<TD>Size</TD>-->
+	<td>Size</td>
+	<td>Units</td>
+	
 	<TD>Grade</TD>
     <TD>CAS#</TD>
     <TD>Owner</TD>
@@ -404,8 +429,41 @@ Location ID: <%= rsChemicals("numLocationID") %>
 	<TD><INPUT size=6 type="text" name=txtQuantity<%=numRecordCounter%> 
 		value="<%= rsChemicals("numQuantity") %>"></TD>
 
-	<TD><INPUT size=6 type="text" name=txtContainerSize<%=numRecordCounter%>
-		value="<%= rsChemicals("strContainerSize") %>"></TD>
+	<!--<TD><INPUT size=6 type="text" name=txtContainerSize<%=numRecordCounter%>
+		value="<%= rsChemicals("strContainerSize") %>"></TD>-->
+
+	<TD>
+		<INPUT type="hidden" name=txtContainerSize<%=numRecordCounter%>
+		value="<%= rsChemicals("strContainerSize") %>">
+		
+		<INPUT size=6 type="text" name=txtSize<%=numRecordCounter%>
+		value="<%= rsChemicals("numSize") %>"></TD>
+
+	<td><select name=txtContainerUnits<%=numRecordCounter%> value="<%=rsChemicals("strContainerUnits") %>" >
+		<option value="">--</option>
+		<option value="g" <% if rsChemicals("strContainerUnits") = "g" then %> selected <% end if %> >g</option>
+		<option value="kg" <% if rsChemicals("strContainerUnits") = "kg" then %> selected <% end if %> >kg</option>
+		<option value="mL" <% if rsChemicals("strContainerUnits") = "mL" then %> selected <% end if %> >mL</option>
+		<option value="L" <% if rsChemicals("strContainerUnits") = "L" then %> selected <% end if %> >L</option>
+		<option value="ug" <% if rsChemicals("strContainerUnits") = "ug" then %> selected <% end if %> >ug</option>
+		<option value="uL" <% if rsChemicals("strContainerUnits") = "uL" then %> selected <% end if %> >uL</option>
+		<option value="packs" <% if rsChemicals("strContainerUnits") = "packs" then %> selected <% end if %> >packs</option>
+		<option value="units" <% if rsChemicals("strContainerUnits") = "units" then %> selected <% end if %> >units</option>
+		<option value="vials" <% if rsChemicals("strContainerUnits") = "vials" then %> selected <% end if %> >vials</option>
+		<option value="tablets" <% if rsChemicals("strContainerUnits") = "tablets" then %> selected <% end if %> >tablets</option>
+		<option value="kits" <% if rsChemicals("strContainerUnits") = "kits" then %> selected <% end if %> >kits</option>
+		<option value="items" <% if rsChemicals("strContainerUnits") = "items" then %> selected <% end if %> >items</option>
+		<option value="Cylinder-A" <% if rsChemicals("strContainerUnits") = "Cylinder-A" then %> selected <% end if %> >Cylinder-A</option>
+		<option value="Cylinder-B" <% if rsChemicals("strContainerUnits") = "Cylinder-B" then %> selected <% end if %> >Cylinder-B</option>
+		<option value="Cylinder-C" <% if rsChemicals("strContainerUnits") = "Cylinder-C" then %> selected <% end if %> >Cylinder-C</option>
+		<option value="Cylinder-D" <% if rsChemicals("strContainerUnits") = "Cylinder-D" then %> selected <% end if %> >Cylinder-D</option>
+		<option value="Cylinder-E" <% if rsChemicals("strContainerUnits") = "Cylinder-E" then %> selected <% end if %> >Cylinder-E</option>
+		<option value="Cylinder-F" <% if rsChemicals("strContainerUnits") = "Cylinder-F" then %> selected <% end if %> >Cylinder-F</option>
+		<option value="Cylinder-G" <% if rsChemicals("strContainerUnits") = "Cylinder-G" then %> selected <% end if %> >Cylinder-G</option>
+	</select>
+	</td>
+	
+
 
 	<%'if rsChemicals("numStoreTypeID")= "1" then%>
 

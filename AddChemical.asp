@@ -97,7 +97,7 @@ If Request.Form("ADD") = "Add New Chemical to the Location" then
     strContainerSize = Request.Form("txtContainerSize") + " " + Request.Form("txtContainerUnit")
     
 	strSQL = "INSERT INTO tblChemicalContainer "
-	strSQL = strSQL + "(strChemicalName, strSpecificLocation, strContainerOwner, strGrade, strContainerSize, numQuantity, strCAS, strOtherInfo, strHazardous,strSSDG, strDangerousGoodsClass,strSubsDG,strHazchem,strPoisons , numLocationID"
+	strSQL = strSQL + "(strChemicalName, strSpecificLocation, strContainerOwner, strGrade, strContainerSize, numQuantity, strCAS, strOtherInfo, strHazardous,strSSDG, strDangerousGoodsClass,strSubsDG,strHazchem,strPoisons , numLocationID, numSize, strContainerUnits "
 
 	'if numStoreTypeID = "1" then
 		strSQL = strSQL + ", strUnNumber, strPG"
@@ -120,13 +120,18 @@ If Request.Form("ADD") = "Add New Chemical to the Location" then
 	strSQL = strSQL + ", '" + InjectionEncode(Request.Form("txtPoisons")) + "'"
 	strSQL = strSQL + ", " + Request.Form("hdnNumLocationID") 
 
+	strSQL = strSQL + ", " + Request.Form("txtContainerSize") +" "
+	strSQL = strSQL + ", '" + Request.Form("txtContainerUnit") +"'"
+
+
 		'if numStoreTypeID = "1" then
 			strSQL = strSQL + ", '" + Request.Form("txtUnNumber") + "'"
 			strSQL = strSQL + ", '" + strPGV + "'"
 		'end if
 
 	strSQL = strSQL + + ")"
-	' Response.Write (strSQL)
+
+	'Response.Write (strSQL)
 	rsChemicals.Open strSQL, conn, 3, 3
 		
 	Dim dtmLastUpdated
