@@ -221,11 +221,35 @@ End If
         <TD>
             <%'if numStoreTypeID = 1 then%>
             <INPUT name=txtContainerSize style="HEIGHT: 22; WIDTH: 72" size="20" maxlength="6">&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="txtContainerUnit" value="mL" checked>mL
-			<input type="radio" name="txtContainerUnit" value="L">L&nbsp;
-			<input type="radio" name="txtContainerUnit" value="g">g&nbsp; 
-			<input type="radio" name="txtContainerUnit" value="Kg">Kg</TD>
-			<td><FONT SIZE="-1">Size of container, not how much is currently in it.</FONT></td></TR>
+        
+
+		<select name=txtContainerUnit<%=numRecordCounter%> >
+			<option value="">--</option>
+			<option value="g">g</option>
+			<option value="kg">kg</option>
+			<option value="mL">mL</option>
+			<option value="L">L</option>
+			<option value="ug">ug</option>
+			<option value="uL">uL</option>
+			<option value="packs">packs</option>
+			<option value="units">units</option>
+			<option value="vials">vials</option>
+			<option value="tablets">tablets</option>
+			<option value="kits">kits</option>
+			<option value="items">items</option>
+			<option value="Cylinder-A">Cylinder-A</option>
+			<option value="Cylinder-B">Cylinder-B</option>
+			<option value="Cylinder-C">Cylinder-C</option>
+			<option value="Cylinder-D">Cylinder-D</option>
+			<option value="Cylinder-E">Cylinder-E</option>
+			<option value="Cylinder-F">Cylinder-F</option>
+			<option value="Cylinder-G">Cylinder-G</option>
+		</select>
+		</TD>
+		<td><FONT SIZE="-1">Size of container, not how much is currently in it.</FONT>
+			
+			
+			</td></TR>
 			<% 'else %>
 			<!--INPUT name=txtContainerSize style="HEIGHT: 22; WIDTH: 72" size="20" maxlength="6"-->
 			<%'end if %>
