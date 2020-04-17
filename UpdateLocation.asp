@@ -101,6 +101,10 @@ end if
 	strStoreLocation = Request.form("numStoreLocation")
 	storeLocation = Request.form("txtStoreLocation")
 	strLoginID = Request.Form("cboLoginID")
+	
+	if strLoginID = "" then:
+		strLoginID = Request.Form("cboLogin")
+
 	dtmLastUpdated = strDate
 	numStoreTypeID = request.form("cboStoreType")
 	strLicensedDepot = request.form("chkLicensedDepot")
@@ -113,6 +117,7 @@ end if
 	For each item in Request.Form
 		If ((item = "bolDeleteLocation") OR (item = "chkNewLoginID" )) then
 			'Do nothing
+
 		else
 			if item <> "txtStoreNotes" then
 				if request.form(item) = "" then
@@ -258,15 +263,46 @@ End If
 
 <script language="javascript">
 <!--
+	var prevpassword;
+	var prevpassword2;
+	var prevloginID;
+	var prevStoreManager;
+	
+function newloginid(cb){
+	if(cb.checked) {
+		prevpassword = document.frmUpdateLocation.txtPassword.value;
+		document.frmUpdateLocation.txtPassword.value = "";
 
-function newloginid(){
-	var blank
-	blank = ""
+		prevpassword2 = document.frmUpdateLocation.txtPassword2.value;
+		document.frmUpdateLocation.txtPassword2.value = "";
 
-	document.frmUpdateLocation.txtPassword.value = blank
-	document.frmUpdateLocation.txtPassword2.value = blank
-//	document.frmUpdateLocation.txtLoginID.value = blank
-	document.frmUpdateLocation.txtStoreManager.value = blank
+		prevloginID = document.frmUpdateLocation.cboLoginID.value;
+		document.frmUpdateLocation.cboLoginID.value = "";
+
+		prevStoreManager = document.frmUpdateLocation.txtStoreManager.value;
+		document.frmUpdateLocation.txtStoreManager.value = "";
+		
+		document.getElementById('loginCombo').style.display= "none";
+		document.getElementById('loginText').style.display= "block";
+
+
+		document.getElementById("loginCombo").disabled = true;
+		document.getElementById("loginText").disabled = false;
+
+	}
+	else{
+			document.frmUpdateLocation.txtPassword.value = prevpassword;
+		document.frmUpdateLocation.txtPassword2.value = prevpassword2;
+		document.frmUpdateLocation.cboLoginID.value = prevloginID;
+		document.frmUpdateLocation.txtStoreManager.value = prevStoreManager;
+
+		document.getElementById('loginCombo').style.display= "block";
+		document.getElementById('loginText').style.display= "none";
+
+		document.getElementById("loginCombo").disabled = false;
+		document.getElementById("loginText").disabled = true;
+		
+	}
 }
 
 function locations() {
@@ -460,7 +496,7 @@ rsStoreType.Open strSQL, conn, 3, 3
         
 	<TR>
         <TD colspan=2>Is the location being managed by a manager that's new to the system: 
-		 <input type="checkbox" name="chkNewLoginID" onClick="newloginid()" LANGUAGE=javascript></TD>
+		 <input type="checkbox" name="chkNewLoginID" onClick="newloginid(this)" LANGUAGE=javascript></TD>
     </TR>
 
         <TR>
@@ -511,7 +547,7 @@ rsAccessOther.Open strSQLAccess, conn, 3, 3
 	<TR>
         <TD>Login ID:</TD>
         <TD>
-          <select name="cboLoginID" onChange="javascript: locations()">
+          <select name="cboLoginID" id="loginCombo" onChange="javascript: locations()">
           <% do while not rsAccess2.EOF 
 		  if ( rsAccess2("strLoginID") <> "admin" ) AND ( rsAccess2("strLoginID") <> "security" ) AND ( rsAccess2("strLoginID") <> "science" ) then		  
 		  %>
@@ -531,6 +567,8 @@ rsAccessOther.Open strSQLAccess, conn, 3, 3
 '	set conn = nothing
 %> 
 	</select>
+			
+			<input type="text" style="display:none" id="loginText" disabled name="cboLogin"/>
         </TD>
       </TR>
     
