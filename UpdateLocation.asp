@@ -330,9 +330,9 @@ end if
 		  <option value="0">Please select</option>
           <% do while not campusLocation.EOF %>
           <option value="<%=campusLocation("numCampusID")%>"
-		  <% if campusLocation("numCampusID") = numCampusID then
-		  response.Write "selected"
-		  end if %>		  
+		  <% if cstr(campusLocation("numCampusID")) = cstr(numCampusID) then %>
+		  selected
+		  <% end if %>		  
 		  ><%= campusLocation("strCampusName") %></option>
           <% campusLocation.MoveNext
 	loop
@@ -379,10 +379,10 @@ buildingLocation.Open strBuildingSQL, conn, 3, 3
 <select name="cboBuildingLocation">
 		<option value="0">Please select</option>
 		<%	do while not buildingLocation.EOF %>
-         <option value="<%= buildingLocation("numBuildingID")%>"
-		  <% if numBuildingID = buildingLocation("numBuildingID") then
-		  response.Write "selected"
-		  end if %>		 
+         <option value="<%= buildingLocation("numBuildingID")%>" data-building="<%= numBuildingID %>"
+		  <% if cstr(numBuildingID) = cstr(buildingLocation("numBuildingID")) then %>
+		  selected
+		 <% end if %>		 
 		 ><%= buildingLocation("strBuildingName") %></option>
           <%	buildingLocation.MoveNext
 	loop
