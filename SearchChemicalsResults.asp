@@ -559,17 +559,17 @@ rsChemicals.MoveNext
 	exp = Split(strSQL, "FROM")
 	
 	dim newFields
-	newFields = "SELECT tblChemicalContainer.numChemicalContainerID,  tblChemicalContainer.numLocationID, tblChemicalContainer.strChemicalName, tblChemicalContainer.strSpecificLocation,"_
-&" tblChemicalContainer.strContainerOwner, tblChemicalContainer.strGrade, tblChemicalContainer.strContainerSize, "_
-&" tblChemicalContainer.numQuantity, tblChemicalContainer.strCas, tblChemicalContainer.strOtherInfo, tblChemicalContainer.strHazardous, "_
-&" tblChemicalContainer.strDangerousGoodsClass, tblChemicalContainer.strUnNumber, tblChemicalContainer.strPG,"_
-&" tblChemicalContainer.strHazChem, tblChemicalContainer.strPoisons, tblChemicalContainer.strSubsDG, tblChemicalContainer.strSSDG "
+	newFields = "SELECT tblChemicalContainer.numBarcode, tblChemicalContainer.strChemicalName, tblChemicalContainer.strSpecificLocation,"_
+	&" tblChemicalContainer.numSize, tblChemicalContainer.strContainerUnits, tblChemicalContainer.numQuantity,"_
+	&" tblChemicalContainer.strCas, tblChemicalContainer.strOtherInfo ,tblChemicalContainer.strContainerOwner,  "_
+	
+&" tblChemicalContainer.strGrade, tblChemicalContainer.strManufacturer, tblChemicalContainer.strproductNumber, "_
+	& " tblChemicalContainer.strState, tblChemicalContainer.strExpiry "
+
 	
 	dim newSQL
 	newSQL = newFields&" FROM "&exp(1)
 	
-	
-
 
 ' DLJ March 2014 only supervisor and admin logins can download CSV 
 
