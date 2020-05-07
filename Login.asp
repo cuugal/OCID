@@ -62,11 +62,11 @@ function formfocus() {
 </head>
 <body>
 <div id="header">
-<img border="0" src="/uts-logo.gif" width="130" height="29" align="left">
+<img border="0" src="uts-logo.gif" width="130" height="29" align="left">
 	<div style="float: right;">
-		<a href="http://www.ocid.uts.edu.au" title="Online Chemical Inventory Database"><img border="0" src="/ocid-logo2.gif" width="96" height="29"></a><br />
+		<a href="http://www.ocid.uts.edu.au" title="Online Chemical Inventory Database"><img border="0" src="ocid-logo.gif" width="96" height="29"></a><br />
 	</div>
-	<div style="clear: both; float: right;"><sup style="font-size: 0.9em;">v3.1</sup></div>
+	<div style="clear: both; float: right;"><sup style="font-size: 0.9em;">v4.2</sup></div>
 </div>
 <div style="background: #c7e3f9;">&nbsp;</div>
 <div style="background: #fff;">&nbsp;</div>

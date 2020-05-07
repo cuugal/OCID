@@ -111,7 +111,7 @@ H3, H4, p {margin-top: 0px}
 	<img border="0" src="ocid-logo.gif" width="96" height="29" align="left">
 	</td>
 	<td align="left" width="12">
-	<font size="2" >v4.1</font>
+	<sup style="font-size: 0.9em;">v4.2</sup>
 	</td>
 	
 	<td ALIGN="CENTER" VALIGN="TOP" bgcolor="#FFFFFF"><font FACE="Arial" COLOR=#3333ff>
