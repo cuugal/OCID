@@ -564,7 +564,7 @@ rsChemicals.MoveNext
 	&" tblChemicalContainer.strCas, tblChemicalContainer.strOtherInfo ,tblChemicalContainer.strContainerOwner,  "_
 	
 &" tblChemicalContainer.strGrade, tblChemicalContainer.strManufacturer, tblChemicalContainer.strproductNumber, "_
-	& " tblChemicalContainer.strState, tblChemicalContainer.strExpiry "
+	& " tblChemicalContainer.strState, tblChemicalContainer.strExpiry, tblChemicalContainer.strHazardous, tblChemicalContainer.strDangerousGoodsClass, tblChemicalContainer.strUnNumber, tblChemicalContainer.strPG, tblChemicalContainer.strHazChem, tblChemicalContainer.strPoisons, tblChemicalContainer.strSubsDG, tblChemicalContainer.strSSDG "
 
 	
 	dim newSQL

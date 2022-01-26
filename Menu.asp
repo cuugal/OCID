@@ -151,7 +151,7 @@ Dim connCampus
 set connCampus = Server.CreateObject("ADODB.Connection")
 connCampus.open constr
 
-strCampusSQL= "SELECT numCampusID, strCampusName FROM tblCampus"
+strCampusSQL= "SELECT numCampusID, strCampusName FROM tblCampus ORDER BY strCampusName"
 
 set campusLocation = Server.CreateObject("ADODB.Recordset")
 'strSQL= strSQL + strBuildingLocationID + "' ORDER BY strStoreLocation, strStoreType"
